@@ -12,7 +12,7 @@ import util.DBConnection;
 
 public class UserDAO {
 	
-	//아이디 중복확인
+	//아이디 중복확인-TEST
 	public boolean confirmID(String id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
