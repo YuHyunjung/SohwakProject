@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+		.serch_box{
+			width: 611px;
+			margin: 0 auto;
+		}
+		.serch_box>h1{
+			margin-bottom: 20px;
+		}
+		#keyword{
+			width: 550px;
+			height: 55px;
+			border-radius: 10px;
+			border: none;
+			background-color: #999999;
+			color: white;
+			font-size: 13pt;
+			padding-left: 14px;
+		}
+		input#submit_btn{
+			background-image: url(../img/search_btn.png);
+			background-size: 55px;
+			width: 55px;
+			height:55px;
+			border: none;
+			text-indent: -1000px;
+			background-color: white;
+		}
+		/*슬라이드쇼*/
+		.slideshow-container {
+		  width: 900px;
+		  margin: 0 auto;
+		  margin-top: 100px;
+		}
+		.dots_box{
+			text-align: center;
+		}
+		.dot {
+		  height: 15px;
+		  width: 15px;
+		  margin: 0 2px;
+		  background-color: #999999;
+		  border-radius: 50%;
+		  display: inline-block;
+		  transition: background-color 0.4s ease;
+			cursor: pointer;
+		}
+		.dot.active{
+			background-color: #668efd;
+		}
+		.slide>a>img{
+			width: 900px;
+		}

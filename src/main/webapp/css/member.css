@@ -1,0 +1,65 @@
+      /*member폴더*/
+		fieldset {
+		    border: none;
+		    /*각 메인컨텐츠 들어가는 가로 사이즈만 조정해주면 가운데 정렬들어가요*/
+		    width: 880px;
+		    margin: 0 auto;
+		}
+		
+		.titleArea>h2 {
+		    text-align: center;
+		    margin-bottom: 15px;
+		}
+		
+		h3 {
+		    border-bottom: 2px solid #999999;
+		    padding-bottom: 5px;
+		    margin-bottom: 20px;
+		}
+		
+		table {
+		    width: 500px;
+		    margin: 10px auto;
+		    border-spacing: 0 5px;
+		}
+		
+		th {
+		    text-align: left;
+		    width: 200px;
+		}
+		
+		input {
+		    width: 245px;
+		    height: 20px;
+		    margin: 3px 0px;
+		}
+		select{
+			width: 249px;
+			height: 20px;
+		}
+		.main_phone_number>input {
+			width: 50px;
+		}
+		.birth_size>input {
+			width: 45px;
+		}
+
+
+		/*버튼영역*/
+		.option {
+			width: 406px;
+			margin: 30px auto;
+		}
+		.option>button{
+			width: 200px;
+			height: 40px;
+			margin: 0 auto;
+			color: white;
+			border: none;
+		}
+		.cancel{
+			background-color: #999999;
+		}
+		.submit {
+			background-color: #668efd;
+		}

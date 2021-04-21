@@ -1,0 +1,216 @@
+		/* °øÅë css */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+*{
+	margin: 0;
+	padding: 0;
+	color: #999999;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+input:focus, textarea{
+	outline:none;
+}
+/* Çì´õ css*/
+header{
+	width: 100%;
+	height: 200px;
+	position: relative;
+}
+.logobox{
+	height: 140px;
+}
+#logo{
+	position: absolute;
+	width: 300px;
+	height: auto;
+	margin: 40px auto;
+	left: 50%;
+	margin-left: -150px;
+}
+.subNav{
+	position: absolute;
+	right: 20px;
+}
+.subNav>ul>li{
+	float: left;
+	margin-right: 4px;
+	margin-top: 92px;
+	font-size: 10pt;
+}
+.subNav>ul>li:last-child{
+	margin-right: 20px;
+}
+.mainNav{
+	height: 40px;
+	width: 100%;
+	background-color: #668efd;
+}
+header:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+/*³×ºñ°ÔÀÌ¼Ç*/
+		
+.mainNav>ul{
+	height: 40px;
+		    width: 579px;
+	margin: 0 auto;
+}
+.mainNav>ul>li{
+	float: left;
+	margin-right: 30px;
+	height: 40px;
+			line-height: 40px;
+
+}
+.mainNav>ul>li:last-child{
+	margin-right: 0;
+}
+.mainNav>ul>li>a{
+	color: white;
+}
+.tab{
+	background-image: url('../img/navi_btn.png');
+	background-size: 666px;
+	background-repeat: no-repeat;
+}
+.navi2{
+	background-position: -138px 0px;
+}
+.navi3{
+	background-position: -297px 0px;
+}
+.navi4{
+	background-position: -442px 0px;
+}
+.navi5{
+	background-position: -581px 0px;
+}
+      .tab{
+          display: inline-block;
+          margin-top: 9px;
+
+      }
+.tab>span{
+	visibility: hidden;
+          display: inline-block;
+          width: 87px;
+}
+      .mainNav>ul>li:nth-child(2)>a>span{
+          width: 110px;
+      }
+.sub_navi_tool{
+	text-align: center;
+	display: none;
+	z-index: 1000!important;
+	position: relative;
+          margin-top: -9px;
+}
+.mainNav>ul>li:first-child:hover .sub_navi_tool{
+	display: block;	
+}
+.sub_navi{
+	background-color: #f9f9f9;
+	height: 26px;
+	line-height: 26px;
+}
+.sub_navi:hover{
+	background-color: #f1f1f1;
+}
+.sub_navi>a{
+	color: #999999;
+	font-size: 8pt;
+}
+.sns{
+	position: absolute;
+	top: 32px;
+	right: 0px;
+}
+.sns>a>img{
+	width: 25px;
+}
+
+/* ¸ÞÀÎÄÁÅÙÃ÷ css*/
+.container{
+	width: 980px;
+	min-height: 600px;
+	margin: 30px auto;
+	font-family: "Nanumsquare";
+}
+/* ÇªÅÍ css */
+.footer{
+	position: relative;
+	width: 100%;
+	background-color: #668efd;
+	height: 140px;
+}
+.register_btn{
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	width: 80px;
+	height: 80px;
+	z-index: 1;
+}
+.footer_box{
+	width: 900px;
+	margin: 0 auto;
+	height: 100px;
+	position: relative;
+}
+.img_area{
+	position: absolute;
+	height: 140px;
+	line-height: 127px;
+}
+.footer_logo{
+	width: 127px;
+    vertical-align: top;
+	   margin-top: 35px;
+}
+.com_info{
+	position: absolute;
+	left: 148px;
+	top: 32px;
+	font-size: 7pt;
+	border-left: 2px solid #999999;
+ 			padding-left: 21px;
+}
+.com_info>span{
+	color: white;
+	font-size: 7pt;
+}
+
+/*ÆäÀÌÂ¡¹øÈ£*/
+.paging{
+	margin: 0 auto;
+ 			 width: 260px;
+}
+.prev, .paging ol,.paging li, .next{
+	display: inline-block;
+}
+.prev>img,.paging li, .next>img{
+	width: 34px;
+	height: 34px;
+	padding: 0;
+ 			margin: 0;
+	float: left;
+}
+.paging li{
+   border: 1px solid #999999;
+	width: 32px;
+	height: 32px;
+	margin: 0 0 0 -1px;
+	text-align: center;
+}
+.paging>ol>li>a{
+	width: 32px;
+	line-height: 32px;
+}
