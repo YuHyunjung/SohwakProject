@@ -174,7 +174,7 @@ public class UserDAO {
 		
 	}
 	
-	//È¸¿øÅ»Åğ
+	//È¸¿øÅ»Åğ - ¼öÁ¤Áß
 	public int deleteUser(String id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
