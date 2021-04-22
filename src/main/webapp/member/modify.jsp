@@ -60,7 +60,7 @@
 		UserDAO dao = new UserDAO();
 		UserDTO dto = dao.info(id);
 	%>
-    <!--회원가입-->
+    <!--회원수정-->
     <div class="container">
         <fieldset>
             <div class="titleArea">
@@ -97,7 +97,7 @@
 	                        <th>비밀번호 확인 질문*</th>
 	                        <td>
                     	     <% if((dto.getPwdCode())==1){
-	                    				out.println("기억에 남는 추억의 장소는");
+	                    				out.println("기억에 남는 추억의 장소는?");
 	                    			}else if((dto.getPwdCode())==2){
 	                    				out.println("자신의 인생 좌우명은?");
 	                    			}else if((dto.getPwdCode())==3){

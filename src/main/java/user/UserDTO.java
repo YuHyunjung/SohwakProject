@@ -11,10 +11,7 @@ public class UserDTO {
 	private int bankCode;
 	private String accountNum;
 	private String  join;
-	private String drop;
-	private String dropDate;
-	private int virtualAccount;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -75,24 +72,5 @@ public class UserDTO {
 	public void setJoin(String join) {
 		this.join = join;
 	}
-	public String getDrop() {
-		return drop;
-	}
-	public void setDrop(String drop) {
-		this.drop = drop;
-	}
-	public String getDropDate() {
-		return dropDate;
-	}
-	public void setDropDate(String dropDate) {
-		this.dropDate = dropDate;
-	}
-	public int getVirtualAccount() {
-		return virtualAccount;
-	}
-	public void setVirtualAccount(int virtualAccount) {
-		this.virtualAccount = virtualAccount;
-	}
-	
 
 }

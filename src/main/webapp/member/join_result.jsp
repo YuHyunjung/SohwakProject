@@ -69,9 +69,17 @@
 		int bankCode = Integer.parseInt(request.getParameter("bank"));
 		String account = request.getParameter("account");
 		String joinDate = "";
+		UserDAO userDAO = new UserDAO();
+		if(userDAO.check(userID)){
+			out.println("<script>");
+			out.println("alert('아이디가 중복됩니다. 다른아이디를 선택해주세요')");
+			out.println("location.href='./join.jsp'");
+			out.println("</script>");
+		}else{
 		
-		UserDAO userDAO = new UserDAO();	//userDAO 객체 생성
-		int result = userDAO.join(userID, userPassword,hint,answer,name,phone,email,bankCode,account,joinDate);
+		
+			//userDAO 객체 생성
+		int result = userDAO.join(userID, userPassword,hint,answer,name,phone,email,bankCode,account,joinDate);		//1이면 성공 -1이면 실패 
 	%>
     <div class="container">
         <fieldset>
@@ -93,5 +101,6 @@
     </div>
     <!--푸터-->
 	<%@ include file="../common/footer.jsp" %>
+	<%} %>
 </body>
 </html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>로그인</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/html/css/common.css">
+	<style>
+		/*member폴더*/
+		fieldset{
+			border: none;
+			/*각 메인컨텐츠 들어가는 가로 사이즈만 조정해주면 가운데 정렬들어가요*/
+			width: 300px;
+			margin: 0 auto;
+		}
+		/*바로하단 .titleArea>h2 css는 안건들여서도되용 통일감위해서*/
+		.titleArea>h2{
+			text-align: center;
+			margin-bottom: 15px;
+		}
+		input{
+			width: 300px;
+			height: 40px;
+			margin: 3px 0px;
+		}
+		input[type="checkbox"]{
+			width: 15px;
+			height: 15px;
+		}
+		.option{
+			margin: 15px 0px;
+		}
+		.option>span>label{
+			font-size: 11px;
+			line-height: 1.5em;
+			color: #999999;
+		}
+		.submit{
+			width: 320px;
+			height: 40px;
+			background-color: #668efd;
+			color: white;
+			border: none;
+		}
+		.find{
+			width: 223px;
+			margin: 0 auto;
+		}
+		.find>a{
+			font-size: 10pt;
+		}
+	</style>
+	<script>
+		var idReg = /^[a-z0-9]{6,12}$/;
+		
+		function chk(){
+			if(!idReg.test($("input[id=member_id]").val())){
+				alert("아이디는 영어와 숫자를 포함한 6~10이여야 합니다.");
+				return false;
+			}
+		}
+	</script>
+</head>
+<body>
+	<!--헤더-->
+	<header>
+		<div class="logobox">
+			<a href="/html/index.html"><img src="/img/logo_gray.png" alt="로고" id="logo"></a>
+			<div class="subNav">
+				<ul>
+					<li><a href="/html/member/login.html">마이페이지</a></li>
+					<li><a href="/html/member/join.html">회원가입</a></li>
+					<li><a href="/html/myshop/wish_list.html">장바구니</a></li>
+					<li><a href="/html/myshop/mypage.html">마이페이지</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--메인 네비게이션-->
+		<div class="mainNav">
+			<ul>
+			<!--메인 네비게이션-->
+				<li><a href="#" class="tab navi1"><span>카테고리&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+					<ul class="sub_navi_tool">
+						<li class="sub_navi"><a href="/html/product/list.html">디지털/가전</a></li>
+						<li class="sub_navi"><a href="/html/product/list.html">가구/인테리어</a></li>
+						<li class="sub_navi"><a href="/html/product/list.html">유아동</a></li>
+						<li class="sub_navi"><a href="/html/product/list.html">생활/가공식품</a></li>
+						<li class="sub_navi"><a href="/html/product/list.html">스포츠/레저</a></li>
+						<li class="sub_navi"><a href="/html/product/list.html">패션</a></li>
+						<li class="sub_navi"><a href="/html/product/list.html">뷰티/미용</a></li>
+						<li class="sub_navi"><a href="/html/product/list.html">반려동물용품</a></li>
+						<li class="sub_navi"><a href="/html/product/list.html">기타중고물품</a></li>
+					</ul>
+				</li>
+				<li><a href="/html/myshop/mypage.html" class="tab navi2"><span>마이페이지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a></li>
+				<li><a href="/html/shopinfo/company.html" class="tab navi3"><span>회사소개&nbsp;&nbsp;&nbsp;&nbsp;</span></a></li>
+				<li><a href="/html/board/notice.html" class="tab navi4"><span>공지사항&nbsp;&nbsp;&nbsp;&nbsp;</span></a></li>
+				<li><a href="tel:000-0000-0000" class="tab navi5"><span>고객센터&nbsp;&nbsp;&nbsp;&nbsp;</span></a></li>
+			</ul>
+		</div>
+	</header>
+	
+	<!--메인컨텐츠-->
+	<div class="container">
+		<fieldset>
+			<div class="titleArea">
+				<!--h2안에 제목만 바꿔주세요-->
+				<h2>로그인</h2>
+			</div>
+			<input type="text" id="member_id" name="member_id" placeholder="아이디">
+			<input type="password" id="member_pwd" name="member_pwd" placeholder="비밀번호">
+			<div class="option">
+				<span class="auto">
+					<input type="checkbox" id="use_login_keeping" name="use_login_keeping" value="T">
+					<label for="use_login_keeping">로그인 상태 유지</label>
+				</span> 
+				<span class="save">
+					<input type="checkbox" id="check_save_id" name="check_save_id" value="T">
+					<label for="check_save_id">아이디 저장</label>
+				</span>
+			</div>
+			<button type="button" class="submit" onclick="chk()">로그인</button>
+			<div class="find">
+				<a href="/html/member/find_id.html">아이디찾기</a>&nbsp;
+				<a href="/html/member/find_pwd.html">비밀번호찾기</a>&nbsp;
+				<a href="/html/member/join.html">회원가입</a>
+			</div>
+		</fieldset>
+	</div>
+	
+	<!--푸터-->
+	<footer>
+		<div class="footer_btn">
+			<a href="/html/product/regist.html"><img src="/img/register_btn.png" alt="상품등록" class="register_btn"></a>
+		</div>
+		<div class="footer">
+			<div class="footer_box">
+				<div class="img_area">
+					<img src="/img/logo_2layer.png" alt="푸터로고" class="footer_logo">
+				</div>
+				<div class="com_info">
+					<span>회사명 : 소확마켓</span>&nbsp;&nbsp;&nbsp;
+					<span>주소 : 서울특별시 관악구 봉천로 227 보라매 샤르망</span><br>
+					<span>전화번호 : 02-1234-5678</span>&nbsp;&nbsp;&nbsp;<span>팩스 : 02-4567-8900</span><br>
+					<span>이메일 : sohwag@sohwag.co.kr</span>&nbsp;&nbsp;&nbsp;<span>사업자번호 : 602-0000-0000</span>
+				</div>
+				<div class="sns">
+					<a href="https://www.facebook.com/" target="_blank"><img src="/img/fb.png" alt="fb"></a>
+					<a href="https://www.kakaocorp.com/" target="_blank"><img src="/img/kakao.png" alt="kakao"></a>
+					<a href="https://www.instagram.com/" target="_blank"><img src="/img/insta.png" alt="insta"></a>
+					<a href="https://www.naver.com/" target="_blank"><img src="/img/naver.png" alt="naver"></a>
+					<a href="https://line.me/ko/" target="_blank"><img src="/img/line.png" alt="line"></a>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
