@@ -10,7 +10,7 @@ public class DBConnection {
 			String dbURL = "jdbc:mysql://localhost:3306/sohwak?useSSL=false&serverTimezone=UTC";
 			String dbID = "root";
 			String dbPassword="my1234";
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			return DriverManager.getConnection(dbURL,dbID,dbPassword);
 		}catch(Exception e) {
 			e.printStackTrace();
