@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.mysql.cj.protocol.Resultset;
-
 import util.DBConnection;
 
 public class UserDAO {
