@@ -78,7 +78,7 @@
 	
 	<!--메인컨텐츠-->
 	<div class="container">
-	<% if (id != null) { 
+	<% if (id != null) { 	//로그인이 되어있다
 		response.sendRedirect("../index.jsp"); 
 		} else { //id = request.getParameter("id"); 
 	 %>

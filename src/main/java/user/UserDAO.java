@@ -10,33 +10,32 @@ import util.DBConnection;
 
 public class UserDAO {
 	
-	//아이디 중복확인 - 수정
-	public boolean confirmID(String id) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		boolean result = false;
+	//아이디 중복확인
+	public static boolean check(String id) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "SELECT user_id from user";
 		
 		try {
-			conn = DBConnection.getConnection();
-			sql = "SELECT user_id from user where id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,id);
-			rs = pstmt.executeQuery();
-			result = rs.next();	//true면 아이디 존재
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getString("user_id").equals(id)) {
+					return true;
+				}
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			try{
-                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
                 if ( conn != null ){ conn.close(); conn=null;    }
             }catch(Exception e){
                 throw new RuntimeException(e.getMessage());
             }
 		}
-		return result;
+		return false;
 	}
+	
 	
 	//회원가입
 	public int join(String id, String pwd, int pwdCode, String answer, String name, String phone, String email, int bankCode, String account, String joinDate) {
@@ -128,7 +127,7 @@ public class UserDAO {
 			pstmt.setString(3, dto.getEmail());
 			pstmt.setString(4, dto.getId());
 			
-			return 	pstmt.executeUpdate();
+			return 	pstmt.executeUpdate(); //성공하면 1반환
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {

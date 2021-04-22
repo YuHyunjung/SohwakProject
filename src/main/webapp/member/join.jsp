@@ -13,38 +13,37 @@
 	<script>
 		function checkID(){
 		    //아이디 정규식
-			var userIdCheck = RegExp(/^[a-z0-9]{5,20}$/);
-		    
-			//id가 공란일때
-		   if($("#main_id").val()==""){
-		    	  alert("아이디를 입력해 주세요.");
-		    	  $("#main_id").focus();
-		    	  return;
-				}
-		      //아이디 유효성 검사
-		   if(!userIdCheck.test($("#main_id").val())){
-		    	  alert("아이디에 영문 소문자와 숫자를 포함하여 5자에서 20자 사이로 입력해 주세요.");
-		    	  $("#main_id").focus();
-		    	  return;
-		      }
+			
 		      
 			//중복확인 결과
-			url = "confirmId.jsp?userId="+$("#main_id").val();
-			window.open(url,"post","width=300,height=150");
+			url = "confirmId.jsp?userId="+document.joinform.userID.value;
+			window.open(url,"confirm","width=300,height=150");
 		}
 	   function checkform() {
-		      
+		   	  //아이디 정규식
+		   	var userIdCheck = RegExp(/^[a-z0-9]{5,20}$/);
 		      //비밀번호 정규식 
-		      var passwdCheck = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/);
+		    var passwdCheck = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/);
 		      //이름 정규식
-		      var nameCheck = RegExp(/^[가-힣]{2,6}$/);
+		    var nameCheck = RegExp(/^[가-힣]{2,6}$/);
 		      //이메일 정규식
-		      var emailCheck = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+		    var emailCheck = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 		      //핸드폰 번호 정규식
-		      var phonNumberCheck = RegExp(/^01[0179][0-9]{7,8}$/);
+		    var phonNumberCheck = RegExp(/^01[0179][0-9]{7,8}$/);
 		      //계좌번호 정규식
-		      var accountCheck = RegExp(/^[0-9_\-]{5,30}$/);
-		   
+		    var accountCheck = RegExp(/^[0-9_\-]{5,30}$/);
+		 		 //id가 공란일때
+			   if($("#main_id").val()==""){
+			    	  alert("아이디를 입력해 주세요.");
+			    	  $("#main_id").focus();
+			    	  return;
+					}
+			      //아이디 유효성 검사
+			   if(!userIdCheck.test($("#main_id").val())){
+			    	  alert("아이디에 영문 소문자와 숫자를 포함하여 5자에서 20자 사이로 입력해 주세요.");
+			    	  $("#main_id").focus();
+			    	  return;
+			      }
 		      //비밀번호, 비밀번호 확인 동일값인지 확인
 		      if($("#password").val() != $("#passwordConfirm").val()){
 		    	  alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요");
@@ -115,7 +114,7 @@
 	                    <tr>
 	                        <th>아이디 *</th>
 	                        <td>
-								<input type="text" id="main_id" name="userID" style="width:168px;">&nbsp;<button type="button" id="button id_btn" onclick="checkID()">아이디확인</button>
+								<input type="text" id="main_id" name="userID" style="width:168px;">
 	                        </td>
 	                    </tr>
 	                    <tr>
