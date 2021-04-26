@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="../css/common.css">
 	<link rel="stylesheet" href="../css/notice_write.css">
 </head>
-<script></script>
+<script></script><!-- 일단 냅둠 -->
 <body>
 	<!--헤더-->
 	<%@ include file="../common/header.jsp" %>
@@ -21,7 +21,7 @@
 		<div class="titleArea">
 			<h2>공지사항작성</h2>
 		</div>
-		<form action="" method="POST" target="">
+		<form action="<%=request.getContextPath()%>/board_AddAction.jsp" method="POST">
             <table>
             	<tr>
             		<th>제목</th>
@@ -37,7 +37,7 @@
 				</tr>
 			</table>
            <div class="btn_area">
-				<input type="submit" name="submit" id="submit" value="등록">
+				<input type="submit" class="submit" onclick="board_AddAction()" value="등록">
 				<input type="reset" name="reset" id="reset" value="다시작성하기">
             </div>
 		</form>
