@@ -37,9 +37,9 @@ request.setCharacterEncoding("UTF-8");
 			<li><a href="#" class="tab navi1"><span>카테고리&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
 				<ul class="sub_navi_tool">
 				<%
-				CategoryDAO cateDAO = new CategoryDAO();
-							List<CategoryDTO> categories = cateDAO.findCategory();
-							for(int i=0;i<categories.size();i++){
+					CategoryDAO cateDAO = new CategoryDAO();
+					List<CategoryDTO> categories = cateDAO.findCategory();
+					for(int i=0;i<categories.size();i++){
 				%>
 					<li class="sub_navi"><a href="../product/list.jsp?cate_no=<%=categories.get(i).getCategoryNo()%>"><%=categories.get(i).getCategory()%></a></li>
 				<%} %>
