@@ -11,38 +11,59 @@
 	<link rel="stylesheet" href="../css/common.css">
 	<link rel="stylesheet" href="../css/notice_write.css">
 </head>
-<script></script><!-- 일단 냅둠 -->
+<script>
+	function Insert(){
+		var insertFrame = document.insertFrame;
+		if(!insertFrame.board_title.value){
+			alert("글 제목을 작성해주세요");
+			insertFrame.board_title.focus();
+			return;
+		}
+		
+		if(!insertFrame.board_content.value){
+			alert("글 내용을 작성해주세요");
+			insertFrame.board_content.focus();
+			return;
+		}
+		
+		insertFrame.submit();
+	}
+	
+</script><!-- 일단 냅둠 -->
 <body>
 	<!--헤더-->
 	<%@ include file="../common/header.jsp" %>
 
 	<!-- 공지사항 -->
+	
+	<%
+		String userID = null;
+		if (session.getAttribute("idkey") != null) {
+			userID = (String)session.getAttribute("idkey");
+		}
+	%>
 	<div class="container">
 		<div class="titleArea">
 			<h2>공지사항작성</h2>
 		</div>
-		<form action="<%=request.getContextPath()%>/board_AddAction.jsp" method="POST">
+		<form action="board_AddAction.jsp" method="POST">
             <table>
             	<tr>
             		<th>제목</th>
-            		<td><input type="text" name="intro" id="intro"></td>
+            		<td><input type="text" name="board_title" id="board_title"></td>
             	</tr>
             	<tr>
             		<th>내용</th>
-            		<td><textarea name="contents" id="" cols="55" rows="20"></textarea></td>
+            		<td><textarea name="board_content" id="board_content" cols="55" rows="20"></textarea></td>
             	</tr>
-				<tr>
-					<th>이미지</th>
-					<td><input type="file" name="addfile" id="addfile"> *2MB까지 가능</td>
-				</tr>
 			</table>
            <div class="btn_area">
-				<input type="submit" class="submit" onclick="board_AddAction()" value="등록">
+				<input type="submit" class="submit" Onclick="insert()" value="등록">
 				<input type="reset" name="reset" id="reset" value="다시작성하기">
             </div>
 		</form>
 	</div>
-
+	
 	<!--푸터-->
 	<%@ include file="../common/footer.jsp" %>
 </body>

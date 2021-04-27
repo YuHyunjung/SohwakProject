@@ -9,9 +9,16 @@
 <body>
 	<%
 		request.setCharacterEncoding("utf-8");
-		String board_date = " ";
-		String title = request.getParameter("title");
-		String discriprion = request.getParameter("discriprion");
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		String dbURL = "jdbc:mysql://localhost:3306/sohwak?useSSL=false&serverTimezone=UTC";
+		String dbID = "root";
+		String dbPassword="my1234";
+		
+		String board_title = request.getParameter("board_title");
+		String board_content = request.getParameter("board_content");
+		
+		
 		
 		
 		
