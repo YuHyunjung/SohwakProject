@@ -10,7 +10,7 @@ import util.DBConnection;
 
 public class UserDAO {
 	
-	//¾ÆÀÌµğ Áßº¹È®ÀÎ
+	//ì•„ì´ë”” ì¤‘ë³µí™•ì¸
 	public static boolean check(String id) {
 		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT user_id from user";
@@ -37,7 +37,7 @@ public class UserDAO {
 	}
 	
 	
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	public int join(String id, String pwd, int pwdCode, String answer, String name, String phone, String email, int bankCode, String account, String joinDate) {
 		Connection conn = null;
 		String sql = "INSERT INTO USER(user_id, user_password, password_code, password_answer, user_name, user_phone, user_email, bank_code, user_account, user_join) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
@@ -75,7 +75,7 @@ public class UserDAO {
 		return -1;
 	}
 	
-	//È¸¿øÁ¤º¸ È®ÀÎ
+	//íšŒì›ì¡°íšŒ
 	public UserDTO info(String id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -113,7 +113,7 @@ public class UserDAO {
 		return userDTO;
 	}
 	
-	//È¸¿øÁ¤º¸¼öÁ¤
+	//íšŒì›ì •ë³´ìˆ˜ì •
 	public int modify(UserDTO dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -127,7 +127,7 @@ public class UserDAO {
 			pstmt.setString(3, dto.getEmail());
 			pstmt.setString(4, dto.getId());
 			
-			return 	pstmt.executeUpdate(); //¼º°øÇÏ¸é 1¹İÈ¯
+			return 	pstmt.executeUpdate(); //ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 1ï¿½ï¿½È¯
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -142,7 +142,7 @@ public class UserDAO {
 	}
 	
 	
-	//·Î±×ÀÎ
+	//ë¡œê·¸ì¸
 	public boolean loginCheck(String id, String password){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -157,7 +157,7 @@ public class UserDAO {
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);
 			rs = pstmt.executeQuery();
-			result = rs.next();	//true¸é ·Î±×ÀÎ¼º°ø
+			result = rs.next();	//trueï¿½ï¿½ ï¿½Î±ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
 		}catch(Exception e) {
 			e.printStackTrace();
 		}try{
@@ -171,7 +171,7 @@ public class UserDAO {
 		
 	}
 	
-	//È¸¿øÅ»Åğ - ¼öÁ¤Áß
+	//íšŒì›íƒˆí‡´-ìˆ˜ì •í• êº¼ì•¼
 	public int deleteUser(String id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

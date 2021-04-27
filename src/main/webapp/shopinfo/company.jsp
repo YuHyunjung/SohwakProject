@@ -25,7 +25,7 @@
 	<!--메인컨텐츠-->
 	<div class="container">
 		<div class="titleArea">
-			<!--h2안에 제목만 바꿔주세요-->
+			<!--h2안에 제목만 바꿔주세요!-->
 			<h2>소확마켓</h2>
 		</div>
 		<img src="../img/company.png" alt="회사소개">
