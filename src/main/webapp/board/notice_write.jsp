@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>회원가입</title>
+	<title>게시판 작성</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon"/>
 	<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
