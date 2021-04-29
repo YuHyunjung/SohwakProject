@@ -10,7 +10,7 @@ import util.DBConnection;
 
 public class ProductDAO {
 	
-	//»óÇ°µî·Ï
+	//ìƒí’ˆë“±ë¡
 	public boolean registProduct(String product_name, String user_id, int category_no, int min_price, int max_price, int current_price,String regist_date, String end_time, String end_date, String product_discription,String filename1,String filename2,String filename3){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -46,7 +46,7 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//»óÇ°°¡Á®¿À±â
+	//ìƒí’ˆê°€ì ¸ì˜¤ê¸°
 	public List<ProductDTO> findProducts(int category_no){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -90,7 +90,49 @@ public class ProductDAO {
 		return productyList;
 	}
 	
-	//»óÇ°»ó¼¼º¸±â
+	
+	//ìƒí’ˆê°€ì ¸ì˜¤ê¸°
+	public List<ProductDTO> findSearchProducts(String keyword){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		List<ProductDTO> productyList = new ArrayList<>(); 
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "SELECT * FROM product WHERE product_name LIKE ? ORDER BY regist_date DESC";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductDTO dto = new ProductDTO();
+				dto.setProduct_code(rs.getInt("product_code"));
+				dto.setProduct_name(rs.getString("product_name"));
+				dto.setUser_id(rs.getString("user_id"));
+				dto.setCategory_no(rs.getInt("category_no"));
+				dto.setMin_price(rs.getInt("min_price"));
+				dto.setMax_price(rs.getInt("max_price"));
+				dto.setCurrent_price(rs.getInt("current_price"));
+				dto.setRegist_date(rs.getString("regist_date"));
+				dto.setEnd_date(rs.getString("end_date"));
+				dto.setDiscription(rs.getString("product_discription"));
+				dto.setThumnail(rs.getString("thumnail"));
+				dto.setImg1(rs.getString("img1"));
+				dto.setImg2(rs.getString("img2"));
+				productyList.add(dto);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return productyList;
+	}
+	
+	//ìƒí’ˆìƒì„¸ë³´ê¸°
 	public ProductDTO getProduct(int product_code) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -130,7 +172,7 @@ public class ProductDAO {
 		return dto;
 	}
 	
-	//ÃÑ Ä«¿îÆ® (ÆäÀÌÂ¡)
+	//ì´ ì¹´ìš´íŠ¸ (í˜ì´ì§•)
 	public int getCount(int category_no) {
 		int count = 0;
 		Connection conn = null;
