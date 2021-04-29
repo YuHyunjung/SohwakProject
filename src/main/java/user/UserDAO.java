@@ -10,7 +10,7 @@ import util.DBConnection;
 
 public class UserDAO {
 	
-	//ì•„ì´ë”” ì¤‘ë³µí™•ì¸
+	//¾ÆÀÌµğ Áßº¹È®ÀÎ
 	public static boolean check(String id) {
 		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT user_id from user";
@@ -37,7 +37,7 @@ public class UserDAO {
 	}
 	
 	
-	//íšŒì›ê°€ì…
+	//È¸¿ø°¡ÀÔ
 	public int join(String id, String pwd, int pwdCode, String answer, String name, String phone, String email, int bankCode, String account, String joinDate) {
 		Connection conn = null;
 		String sql = "INSERT INTO USER(user_id, user_password, password_code, password_answer, user_name, user_phone, user_email, bank_code, user_account, user_join) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
@@ -75,7 +75,7 @@ public class UserDAO {
 		return -1;
 	}
 	
-	//íšŒì›ì¡°íšŒ
+	//È¸¿øÁ¤º¸ °¡Á®¿À±â
 	public UserDTO info(String id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -113,7 +113,7 @@ public class UserDAO {
 		return userDTO;
 	}
 	
-	//íšŒì›ì •ë³´ìˆ˜ì •
+	//È¸¿øÁ¤º¸¼öÁ¤
 	public int modify(UserDTO dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -142,7 +142,7 @@ public class UserDAO {
 	}
 	
 	
-	//ë¡œê·¸ì¸
+	//·Î±×ÀÎ
 	public boolean loginCheck(String id, String password){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -152,7 +152,7 @@ public class UserDAO {
 		
 		try {
 			conn = DBConnection.getConnection();
-			sql = "select user_id from user where user_id=? and user_password=?";
+			sql = "select user_id from user where user_id=? and user_password=? and user_drop is null";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);
@@ -171,27 +171,31 @@ public class UserDAO {
 		
 	}
 	
-	//íšŒì›íƒˆí‡´-ìˆ˜ì •í• êº¼ì•¼
-	public int deleteUser(String id) {
+	//È¸¿øÅ»Åğ
+	public int deleteMember(String id, String password){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
-		int result = -1;
+		int result = 0;
 		
 		try {
 			conn = DBConnection.getConnection();
-			sql = "DELETE FROM user WHERE user_id=?";
+			sql = "update user set user_drop ='Å»Åğ' where user_id=? and user_password=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
+			pstmt.setString(2, password);
 			result = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
-		}try{
-            if ( pstmt != null ){ pstmt.close(); pstmt=null; }
-            if ( conn != null ){ conn.close(); conn=null;    }
-        	}catch(Exception e){
-        		throw new RuntimeException(e.getMessage());
-        }
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		
 		return result;
 	}
 }
