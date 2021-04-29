@@ -10,7 +10,7 @@ import util.DBConnection;
 
 public class ProductDAO {
 	
-	//상품등록
+	//�긽�뭹�벑濡�
 	public boolean registProduct(String product_name, String user_id, int category_no, int min_price, int max_price, int current_price,String regist_date, String end_time, String end_date, String product_discription,String filename1,String filename2,String filename3){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -33,6 +33,7 @@ public class ProductDAO {
 			pstmt.setString(11, filename2);
 			pstmt.setString(12, filename3);
 			pstmt.executeUpdate();
+			result = true;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -46,7 +47,7 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//상품가져오기
+	//�긽�뭹媛��졇�삤湲�
 	public List<ProductDTO> findProducts(int category_no){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -91,7 +92,7 @@ public class ProductDAO {
 	}
 	
 	
-	//상품가져오기
+	//�긽�뭹媛��졇�삤湲�
 	public List<ProductDTO> findSearchProducts(String keyword){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +133,7 @@ public class ProductDAO {
 		return productyList;
 	}
 	
-	//상품상세보기
+	//�긽�뭹�긽�꽭蹂닿린
 	public ProductDTO getProduct(int product_code) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -170,34 +171,6 @@ public class ProductDAO {
 			}
 		}
 		return dto;
-	}
-	
-	//총 카운트 (페이징)
-	public int getCount(int category_no) {
-		int count = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ProductDTO dto = null;
-		try {
-			conn = DBConnection.getConnection();
-			String sql = "select count(*) from product where category_no=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, category_no);
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				count = rs.getInt(1);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try{
-				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
-				if ( conn != null ){ conn.close(); conn=null;    }
-			}catch(Exception e){
-				throw new RuntimeException(e.getMessage());
-			}
-		}
-		return count;
 	}
 	
 }

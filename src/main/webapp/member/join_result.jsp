@@ -95,7 +95,7 @@
                  <p>고객님, 즐거운 쇼핑하세요!</p>
             </div>
             <div class="option1">
-                <a href="/html/member/login.html"><button type="button" class="submit">로그인</button></a>
+                <a href="./login.jsp"><button type="button" class="submit">로그인</button></a>
             </div>
         </fieldset>
     </div>

@@ -21,7 +21,7 @@
 			margin-bottom: 15px;
 		}
 		input{
-			width: 300px;
+			width: 316px;
 			height: 40px;
 			margin: 3px 0px;
 		}
@@ -45,7 +45,7 @@
 			border: none;
 		}
 		.find{
-			width: 223px;
+			width: 54px;
 			margin: 0 auto;
 		}
 		.find>a{
@@ -93,7 +93,6 @@
 				<button type="button" class="submit" onclick="checkValue()">로그인</button>
 			</form>
 			<div class="find">
-				<a href="./find_pwd.jsp">비밀번호찾기</a>&nbsp;
 				<a href="./join.jsp">회원가입</a>
 			</div>
 		</fieldset>

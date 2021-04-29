@@ -89,7 +89,7 @@
 		.sub_detail th{
 			text-align: left;
 			padding-right: 40px;
-			width: 30%
+			width: 35%
 		}
 		.sub_detail th, .sub_detail td{
 			font-size: 15pt

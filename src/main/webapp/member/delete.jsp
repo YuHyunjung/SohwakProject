@@ -22,27 +22,25 @@
 			margin-bottom: 15px;
 		}
 		input{
-			width: 300px;
+			width: 215px;
 			height: 40px;
 			margin: 3px 0px;
 		}
-		.submit{
-			width: 180px;
+		.delete>button{
+			width: 147px;
 			height: 40px;
 			background-color: #668efd;
 			color: white;
 			border: none;
 			margin-bottom : 20px;
 		}
-		.cancel{
-			width: 100px;
-			height:40px;
+		.submit{
 			background-color: #668efd;
-			color: white;
-			border: none;
-			margin-bottom : 20px;
+			
 		}
-		
+		.cancel{
+			background-color: #999999;
+		}
 	</style>
 <!-- %
 	request.setCharacterEncoding("UTF-8"); 
@@ -68,7 +66,7 @@
 	</div>
 	<form method="post" id="deleteForm">
 			아이디 : <%=id %> <br>
-			<input type="password" id="password" name="password" placeholder="비밀번호">
+			비밀번호 : <input type="password" id="password" name="password" placeholder="비밀번호">
 	
 		<div class="delete">
 		    <button type="submit" class="submit" onclick="deleteID()">회원탈퇴</button>

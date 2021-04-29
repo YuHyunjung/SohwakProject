@@ -63,12 +63,12 @@
 		String time = request.getParameter("time");
 		String charge_withdraw = request.getParameter("charge_withdraw");
 		int amount = Integer.parseInt(request.getParameter("amount"));
-		
+		int total = Integer.parseInt(request.getParameter("total")) + amount;
 
 		CashDAO cashDAO = new CashDAO();
 		
 			//userDAO 객체 생성
-		int result = cashDAO.chargeCash(user_id,time,charge_withdraw,amount); //1이면 성공 -1이면 실패 
+		int result = cashDAO.chargeCash(user_id,time,charge_withdraw,amount,total); //1이면 성공 -1이면 실패 
 		if(result == 1) {
 	%>
     <div class="container">
@@ -81,6 +81,7 @@
             </div>
             <div class="titleArea_question">
                 <p><%=user_id %>회원님, <%=amount %>원 충전이 완료되었습니다.</p>
+                <p>총 금액은 <%=total %>입니다.</p>
                 <p>고객님, 즐거운 거래하세요!</p>
             </div>
             <div class="option1">
