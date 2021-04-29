@@ -72,6 +72,7 @@
 		white-space:nowrap;
 	}
 </style>
+
 </head>
 <body>
 	<!--헤더-->
@@ -89,9 +90,9 @@
 		</div>
 		<ul class="product_list">
 				<%
-					String categoryNo = request.getParameter("category_no");
+					int category_no = Integer.parseInt(request.getParameter("categoryNo"));
 					ProductDAO productDAO = new ProductDAO();
-					List<ProductDTO> products = productDAO.findProducts();
+					List<ProductDTO> products = productDAO.findProducts(category_no);
 					for(int i=0;i<products.size();i++){
 				%>
 			<!--상품리스트-->
@@ -105,9 +106,8 @@
 									<th colspan="2" style="text-align: center;"><div class="product_name"><%=products.get(i).getProduct_name()%></div></th>
 								</tr>
 								<tr>
-									<th>타임</th>
-									<input type="hidden" value="<%=products.get(i).getCategory_no() %>"/>
-									<td>00일 00시 00분</td>
+									<th>경매종료</th>
+									<td style="font-size:9pt;"><%=products.get(i).getEnd_date()%></div></td>
 								</tr>
 								<tr>
 									<th>최저가</th>

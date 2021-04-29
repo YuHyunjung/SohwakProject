@@ -1,6 +1,6 @@
-<%@page import="product.CategoryDTO"%>
-<%@page import="product.CategoryDAO"%>
-<%@page import="java.util.List"%>
+<%@ page import="product.CategoryDTO"%>
+<%@ page import="product.CategoryDAO"%>
+<%@ page import="java.util.List"%>
 
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%
@@ -41,7 +41,7 @@ request.setCharacterEncoding("UTF-8");
 					List<CategoryDTO> categories = cateDAO.findCategory();
 					for(int i=0;i<categories.size();i++){
 				%>
-					<li class="sub_navi"><a href="../product/list.jsp?cate_no=<%=categories.get(i).getCategoryNo()%>"><%=categories.get(i).getCategory()%></a></li>
+					<li class="sub_navi"><a href="../product/list.jsp?categoryNo=<%=categories.get(i).getCategoryNo()%>"><%=categories.get(i).getCategory()%></a></li>
 				<%} %>
 				</ul>
 			</li>

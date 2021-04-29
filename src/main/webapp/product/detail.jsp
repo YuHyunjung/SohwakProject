@@ -209,7 +209,7 @@
 							<td><%=productDTO.getCurrent_price() %></td>
 						</tr>
 					</table>
-					<input type="number" placeholder="희망입찰가" name="price" id="price">
+					<input type="number" placeholder="희망입찰가" name="price" id="price" step="100">
 					<button type="submit" class="submit">입찰하기</button>
 					<button type="button" class="wish_list" onclick="location.href='/html/myshop/wish_list.html'">장바구니</button>
 				</div>

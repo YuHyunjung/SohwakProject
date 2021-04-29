@@ -47,15 +47,16 @@ public class ProductDAO {
 	}
 	
 	//상품가져오기
-	public List<ProductDTO> findProducts(){
+	public List<ProductDTO> findProducts(int category_no){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		List<ProductDTO> productyList = new ArrayList<>(); 
 		
 		try {
 			conn = DBConnection.getConnection();
-			String sql = "SELECT * FROM product ORDER BY regist_date DESC";
+			String sql = "SELECT * FROM product WHERE category_no=? ORDER BY regist_date DESC";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, category_no);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ProductDTO dto = new ProductDTO();
@@ -127,6 +128,34 @@ public class ProductDAO {
 			}
 		}
 		return dto;
+	}
+	
+	//총 카운트 (페이징)
+	public int getCount(int category_no) {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ProductDTO dto = null;
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "select count(*) from product where category_no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, category_no);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return count;
 	}
 	
 }
