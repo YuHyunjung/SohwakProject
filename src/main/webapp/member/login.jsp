@@ -93,8 +93,8 @@
 				<button type="button" class="submit" onclick="checkValue()">로그인</button>
 			</form>
 			<div class="find">
-				<a href="./find_pwd.html">비밀번호찾기</a>&nbsp;
-				<a href="./join.html">회원가입</a>
+				<a href="./find_pwd.jsp">비밀번호찾기</a>&nbsp;
+				<a href="./join.jsp">회원가입</a>
 			</div>
 		</fieldset>
 		<%

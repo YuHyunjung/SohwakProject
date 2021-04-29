@@ -3,6 +3,9 @@
 	request.setCharacterEncoding("UTF-8"); 
 	String id = (String) session.getAttribute("idKey");  //세션에서 idkey를 가져온다
 %>
+<%@ page import="product.CategoryDTO"%>
+<%@ page import="product.CategoryDAO"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,16 +46,14 @@
 			<!--메인 네비게이션-->
 				<li><a href="#" class="tab navi1"><span>카테고리&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
 					<ul class="sub_navi_tool">
-						<li class="sub_navi"><a href="product/list.jsp">디지털/가전</a></li>
-						<li class="sub_navi"><a href="product/list.jsp">가구/인테리어</a></li>
-						<li class="sub_navi"><a href="product/list.jsp">유아동</a></li>
-						<li class="sub_navi"><a href="product/list.jsp">생활/가공식품</a></li>
-						<li class="sub_navi"><a href="product/list.jsp">스포츠/레저</a></li>
-						<li class="sub_navi"><a href="product/list.jsp">패션</a></li>
-						<li class="sub_navi"><a href="product/list.jsp">뷰티/미용</a></li>
-						<li class="sub_navi"><a href="product/list.jsp">반려동물용품</a></li>
-						<li class="sub_navi"><a href="product/list.jsp">기타중고물품</a></li>
-					</ul>
+					<%
+						CategoryDAO cateDAO = new CategoryDAO();
+						List<CategoryDTO> categories = cateDAO.findCategory();
+						for(int i=0;i<categories.size();i++){
+					%>
+						<li class="sub_navi"><a href="./product/list.jsp?categoryNo=<%=categories.get(i).getCategoryNo()%>"><%=categories.get(i).getCategory()%></a></li>
+					<%} %>
+				</ul>
 				</li>
 				<li><a href="myshop/mypage.jsp" class="tab navi2"><span>마이페이지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a></li>
 				<li><a href="shopinfo/company.jsp" class="tab navi3"><span>회사소개&nbsp;&nbsp;&nbsp;&nbsp;</span></a></li>
