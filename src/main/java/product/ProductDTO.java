@@ -13,6 +13,8 @@ public class ProductDTO {
 	private String end_date;
 	private String discription;
 	private String thumnail;
+	private String img1;
+	private String img2;
 	
 	public Integer getProduct_code() {
 		return product_code;
@@ -79,6 +81,18 @@ public class ProductDTO {
 	}
 	public void setThumnail(String thumnail) {
 		this.thumnail = thumnail;
+	}
+	public String getImg1() {
+		return img1;
+	}
+	public void setImg1(String img1) {
+		this.img1 = img1;
+	}
+	public String getImg2() {
+		return img2;
+	}
+	public void setImg2(String img2) {
+		this.img2 = img2;
 	}
 	
 }

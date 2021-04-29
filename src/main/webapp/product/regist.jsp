@@ -11,7 +11,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon"/>
 	 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	 <link rel="stylesheet" href="/resources/demos/style.css">
 	 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="../css/common.css">
@@ -85,6 +84,35 @@ $( function() {
 	
 });
 function regist(){
+	  if($("#thumbnail_img").val() == ""){
+		  alert("대표이미지를 등록해주세요.");
+		  return
+	  }
+	  if($("#min_price").val() == ""){
+		  alert("최저가를 입력해주세요.");
+		  return
+	  }
+	  if($("#max_price").val() == ""){
+		  alert("최고가를 입력해주세요.");
+		  return
+	  }
+	  if($("#pruduct_name").val() == ""){
+		  alert("상품명을 입력해주세요.");
+		  return
+	  }
+	  if($("#category_option").val() == ""){
+		  alert("카테고리를 선택해주세요.");
+		  return
+	  }
+	  if($("#category_option").val() == ""){
+		  alert("카테고리를 선택해주세요.");
+		  return
+	  }
+	  if($("#datepicker").val() == "" || $("#end_time").val() == ""){
+		  alert("경매종료 일자를 선택해주세요.");
+		  return
+	  }
+	  
 	  if($("#min_price").val()<0){
 		  alert("최저가를 잘못 입력하셨습니다. 다시 입력해주세요.");
 		  return
@@ -126,6 +154,7 @@ function regist(){
 					<td>
 						<input type="file" accept="image/*" id="thumbnail_img" name="thrumbnail_img">
 						<img id="load_img">
+						<span>*필수 항목입니다.</span>
 					</td>
 				</tr>
 				<tr>

@@ -1,10 +1,10 @@
-<%@page import="java.util.Enumeration"%>
-<%@page import="product.ProductDAO"%>
-<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
-<%@page import="com.oreilly.servlet.MultipartRequest"%>
-<%@page import="java.io.File" %>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Enumeration"%>
+<%@ page import="product.ProductDAO"%>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@ page import="com.oreilly.servlet.MultipartRequest"%>
+<%@ page import="java.io.File" %>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -35,17 +35,19 @@
 		String end_date = multi.getParameter("end_date");
 		String product_discription = multi.getParameter("description");
 		
-		String fname="";
-		String fileName="";
 		
 		Enumeration files = multi.getFileNames();	//file 속성으로 지정된 input 파라미터 태그의 이름을 Enumeration 타입으로 변환
-		while(files.hasMoreElements()){
-			fname = (String)files.nextElement();
-			fileName = multi.getFilesystemName(fname); //서버상에 실제로 업로드된 파일 이름을 저장한다.
-		}
+		String fname3 = (String)files.nextElement();
+		String fileName3 = multi.getFilesystemName(fname3); //서버상에 실제로 업로드된 파일 이름을 저장한다.
+
+		String fname2 = (String)files.nextElement();
+		String fileName2 = multi.getFilesystemName(fname2);
+		
+		String fname1 = (String)files.nextElement();
+		String fileName1 = multi.getFilesystemName(fname1);
 
 		ProductDAO dao = new ProductDAO();
-		boolean result = dao.registProduct(product_name, user_id, category_no, min_price, max_price, current_price, regist_date, end_time, end_date, product_discription, fileName);
+		boolean result = dao.registProduct(product_name, user_id, category_no, min_price, max_price, current_price, regist_date, end_time, end_date, product_discription, fileName1, fileName2, fileName3);
 		String message = "상품등록이 실패하였습니다. 다시 시도해주세요.";
 		if(result){
 			message ="상품등록 완료";
@@ -54,6 +56,6 @@
 </body>
 	<script>
 		alert("<%=message%>"); 
-		location.href="./list.jsp"; 
+		location.href="../myshop/sale_history.html"; 
 	</script>
 </html>
