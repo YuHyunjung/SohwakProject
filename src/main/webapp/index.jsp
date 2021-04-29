@@ -5,7 +5,14 @@
 %>
 <%@ page import="product.CategoryDTO"%>
 <%@ page import="product.CategoryDAO"%>
+
+<%@ page import="product.ProductDTO"%>
+<%@ page import="product.ProductDAO"%>
+<jsp:useBean id="dao" class="product.ProductDAO" /> 
+
 <%@ page import="java.util.List"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,12 +74,12 @@
 	<div class="container">
 		<div class="serch_box">
 		<h1>찾으시는 물건이 있으신가요?</h1>
-			<form action="" method="post">
+			<form action="search/search.jsp" method="post">
 				<input type="search" id="keyword" name="keyword">
 				<input type="submit" id="submit_btn">
 			</form>
 		</div>
-		
+
 		<div class="slideshow-container">
 			<div class="slide fade">
 				<a href="shopinfo/company.jsp">
