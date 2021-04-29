@@ -42,7 +42,7 @@
                <td><%=boardList.get(i).getBoard_code() %></td>
                <td><a href="./notice_deetail.jsp?board_code=<%=boardList.get(i).getBoard_code()%>"><%=boardList.get(i).getTitle() %></a></td>
                <td><%=boardList.get(i).getBoard_date() %></td>
-           </tr>//각각에 해당하는 값들을 가져와라 가 get(i)쓰면 i번째 인덱스에 들어있는 아이들을꺼내옴
+           </tr>
            <%
 			}
            %>

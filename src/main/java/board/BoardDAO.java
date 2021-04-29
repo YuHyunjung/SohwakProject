@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import product.CategoryDTO;
+
+
 import util.DBConnection;
 
 public class BoardDAO {
@@ -74,5 +75,26 @@ public class BoardDAO {
 		return boardList;
 	}
 	
-	
+	//게시물 상세보기
+	public BoardDTO getDetail(int board_code) {
+		Connection conn = null;
+		String sql = "SELECT * FROM board where board_code=?";
+		
+
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,board_code);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setTitle(rs.getString(1));
+				dto.setDiscriprion(rs.getString(2));
+				dto.setBoard_date(rs.getString(3));
+				return dto;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		} return null;
+	}
 }
+
