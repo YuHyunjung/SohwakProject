@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/cash/CashDAO.java=UTF-8
+encoding//src/main/java/product/ProductDAO.java=UTF-8
 encoding//src/main/webapp/common/footer.jsp=UTF-8
 encoding//src/main/webapp/common/header.jsp=UTF-8

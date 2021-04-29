@@ -114,7 +114,7 @@
 	                    <tr>
 	                        <th>아이디 *</th>
 	                        <td>
-								<input type="text" id="main_id" name="userID" style="width:168px;">
+								<input type="text" id="main_id" name="userID">
 	                        </td>
 	                    </tr>
 	                    <tr>

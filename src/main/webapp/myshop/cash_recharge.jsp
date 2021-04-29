@@ -7,8 +7,6 @@
 <%@ page import="java.io.PrintWriter"%>
 <%@page import="java.util.Vector"%>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +17,6 @@
 	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon"/>
 	<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
 	<link rel="stylesheet" href="../css/common.css">
-	<link rel="stylesheet" href="../css/member.css">
 	
 	<style>
         .recharge_main{
@@ -33,6 +30,14 @@
         .chk_amount{
         width: 30px;
         }
+        .submit{
+        width: 200px;
+	    height: 40px;
+	    margin: 0 auto;
+	    color: white;
+	    border: none;
+	    background-color: #668efd;
+	    }
 	</style>
 </head>
 
@@ -49,30 +54,38 @@
 	} else {
 		
 %>
-
-    <div class="recharge_main">
-          <h2>캐시충전</h2>
-        <div class="recharge_content">
-
-        	<form action="cash_recharge_result.jsp" method="post" >
-                <p>예금주 <%=userDTO.getName() %></p>
-                <p>계좌번호 <%=userDTO.getAccountNum() %></p>
-
-                <input class="chk_amount" type="radio" name="amount" value=50000>5만원
-                <input class="chk_amount" type="radio" name="amount" value=100000>10만원
-                <input class="chk_amount" type="radio" name="amount" value=150000>15만원
-                <input class="chk_amount" type="radio" name="amount" value=200000>20만원<br>
-                
-                
-                <input type="hidden" name="user_id" value="<%=id %>">
-                <input type="hidden" name="time" value="">
-                <input type="hidden" name="charge_withdraw" value="충전">
-                <button type="submit" class="submit">충전하기</button>
-
-            <!-- button type="button"><a href="cash_recharge_result.jsp" onclick="window.open(this.href, '_blank', 'width=400px, height=300px,toolbars=no,scrollbars=no'); return false;">충전요청</a></button> -->
-			</form>
-			
-        </div>
+	<div class="container">
+	    <div class="recharge_main">
+	          <h2>캐시충전</h2>
+	        <div class="recharge_content">
+	
+	        	<form action="cash_recharge_result.jsp" method="post" >
+	                <p>예금주 <%=userDTO.getName() %></p>
+	                <p>계좌번호 <%=userDTO.getAccountNum() %></p>
+	
+	                <input class="chk_amount" type="radio" name="amount" value=50000>5만원
+	                <input class="chk_amount" type="radio" name="amount" value=100000>10만원
+	                <input class="chk_amount" type="radio" name="amount" value=150000>15만원
+	                <input class="chk_amount" type="radio" name="amount" value=200000>20만원<br>
+	                
+	                <%
+	                	CashDAO cashDAO = new CashDAO();
+	                	CashDTO cashDTO = cashDAO.infoCash(id);
+	                	String total = String.valueOf(cashDTO.getAmount());
+	                	if(total == null){
+	                		total = "0";
+	                	}
+	                %>
+	                <input type="hidden" name="user_id" value="<%=id %>">
+	                <input type="hidden" name="time" value="">
+	                <input type="hidden" name="total" value="<%=total%>">
+	                <input type="hidden" name="charge_withdraw" value="충전">
+	                <button type="submit" class="submit">충전하기</button>
+	
+				</form>
+				
+	        </div>
+	    </div>
     </div>
 <% 		
 		}

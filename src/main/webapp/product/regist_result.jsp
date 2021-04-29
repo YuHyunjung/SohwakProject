@@ -56,6 +56,6 @@
 </body>
 	<script>
 		alert("<%=message%>"); 
-		location.href="../myshop/sale_history.html"; 
+		location.href="../myshop/sale_history.jsp"; 
 	</script>
 </html>

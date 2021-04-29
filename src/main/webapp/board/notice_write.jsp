@@ -10,6 +10,16 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
 	<link rel="stylesheet" href="../css/common.css">
 	<link rel="stylesheet" href="../css/notice_write.css">
+	<style>
+		.submit{
+		    width: 200px;
+		    height: 40px;
+		    margin: 0 auto;
+		    color: white;
+		    border: none;
+		    background-color: #668efd;
+	    }
+	</style>
 </head>
 <script>
 	function Insert(){
@@ -29,7 +39,7 @@
 		insertFrame.submit();
 	}
 	
-</script><!-- 일단 냅둠 -->
+</script>
 <body>
 	<!--헤더-->
 	<%@ include file="../common/header.jsp" %>
@@ -37,9 +47,12 @@
 	<!-- 공지사항 -->
 	
 	<%
-		String userID = null;
-		if (session.getAttribute("idkey") != null) {
-			userID = (String)session.getAttribute("idkey");
+		if(id==null){
+			response.sendRedirect("../member/login.jsp");
+		}
+		if(id!=null && !id.equals("admin1")){
+			out.println("<script>alert('접근할수없습니다.')</script>");
+			response.sendRedirect("../index.jsp");
 		}
 	%>
 	<div class="container">

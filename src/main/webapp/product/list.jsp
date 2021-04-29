@@ -92,12 +92,6 @@
 				<%
 					int category_no = Integer.parseInt(request.getParameter("categoryNo"));
 					ProductDAO productDAO = new ProductDAO();
-					int totalCount = productDAO.countProduct(category_no);
-					int countList = 12;
-					int totalPage = totalCount/countList;
-					if(totalCount % countList >0){
-						totalPage++;
-					}
 					List<ProductDTO> products = productDAO.findProducts(category_no);
 					for(int i=0;i<products.size();i++){
 				%>

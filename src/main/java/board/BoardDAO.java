@@ -38,8 +38,6 @@ public class BoardDAO {
 		return -1;
 	}
 	
-	
-	
 	//게시판 리스트
 	public List<BoardDTO> findBoard(){
 		Connection conn = null;

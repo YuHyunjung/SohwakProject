@@ -33,20 +33,20 @@
            
            </tr>
            	<%
-				BoardDAO dao = new BoardDAO();	//BoardDAO 불러오려면 import 해야하는데 안했어
+				BoardDAO dao = new BoardDAO();	
 				
-				List<BoardDTO> boardList = dao.findBoard();	//BoardDTO 도 import안하고 findBoard()메소드 자체를 호출안함..
-				for(int i=0;i<boardList.size();i++){	//for문써서 list로 받았으니까 (배열이랑비슷) 그럼 그 순서대로뽑아와야하니까 boardList사이즈만큼
+				List<BoardDTO> boardList = dao.findBoard();	
+				for(int i=0;i<boardList.size();i++){	
 			%>
            <tr>
                <td><%=boardList.get(i).getBoard_code() %></td>
                <td><a href="./notice_deetail.jsp?board_code=<%=boardList.get(i).getBoard_code()%>"><%=boardList.get(i).getTitle() %></a></td>
                <td><%=boardList.get(i).getBoard_date() %></td>
-           </tr>//각각에 해당하는 값들을 가져와라 가 get(i)쓰면 i번째 인덱스에 들어있는 아이들을꺼내옴
+           </tr>
            <%
 			}
            %>
-
+			
        </table>
        
        
@@ -61,9 +61,11 @@
 			</ol>
 			<a href="#none" class="next"><img src="../img/next_btn.png" alt="다음페이지"></a>
 		</div>
+		<%if(id!=null && id.equals("admin1")){%>
         <fieldset>
-            <input type="button" id="submit" name="submit" value="글쓰기" onclick="location.href='./notice_write.html'">
+        	<a href="./notice_write.jsp" id="submit">글쓰기</a>
         </fieldset>
+		<%}%>
     </div>
     
 	<!--푸터-->
