@@ -92,6 +92,12 @@
 				<%
 					int category_no = Integer.parseInt(request.getParameter("categoryNo"));
 					ProductDAO productDAO = new ProductDAO();
+					int totalCount = productDAO.countProduct(category_no);
+					int countList = 12;
+					int totalPage = totalCount/countList;
+					if(totalCount % countList >0){
+						totalPage++;
+					}
 					List<ProductDTO> products = productDAO.findProducts(category_no);
 					for(int i=0;i<products.size();i++){
 				%>
@@ -107,7 +113,7 @@
 								</tr>
 								<tr>
 									<th>경매종료</th>
-									<td style="font-size:9pt;"><%=products.get(i).getEnd_date()%></div></td>
+									<td style="font-size:9pt;"><%=products.get(i).getEnd_date()%></td>
 								</tr>
 								<tr>
 									<th>최저가</th>
@@ -131,11 +137,7 @@
 		<div class="paging">
 			<a href="#none" class="prev"><img src="../img/prev_btn.png" alt="이전페이지"></a>
 			<ol>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
+				<li><a href="./list.jsp?categoryNo=<%=category_no%>&page="></a></li>
 			</ol>
 			<a href="#none" class="next"><img src="../img/next_btn.png" alt="다음페이지"></a>
 		</div>

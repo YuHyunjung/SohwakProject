@@ -130,32 +130,5 @@ public class ProductDAO {
 		return dto;
 	}
 	
-	//ÃÑ Ä«¿îÆ® (ÆäÀÌÂ¡)
-	public int getCount(int category_no) {
-		int count = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ProductDTO dto = null;
-		try {
-			conn = DBConnection.getConnection();
-			String sql = "select count(*) from product where category_no=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, category_no);
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				count = rs.getInt(1);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try{
-				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
-				if ( conn != null ){ conn.close(); conn=null;    }
-			}catch(Exception e){
-				throw new RuntimeException(e.getMessage());
-			}
-		}
-		return count;
-	}
-	
+
 }
