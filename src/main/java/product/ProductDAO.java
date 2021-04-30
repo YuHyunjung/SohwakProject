@@ -48,7 +48,7 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//�긽�뭹媛��졇�삤湲�
+	//카테고리별
 	public List<ProductDTO> findProducts(int category_no){
 		Connection conn = null;
 		PreparedStatement pstmt = null;

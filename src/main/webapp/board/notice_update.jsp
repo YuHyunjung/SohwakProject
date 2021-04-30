@@ -43,6 +43,16 @@
 		<div class="titleArea">
 			<h2>공지사항수정</h2>
 		</div>
+		<%
+		int board_code = Integer.parseInt(request.getParameter("board_code"));
+		
+		String board_title = request.getParameter("board_title");
+		String board_content = request.getParameter("board_content");
+		
+		BoardDAO dao = new BoardDAO();
+		int result = dao.board_AddAction(board_title, board_content);
+		
+		%>
 		<form action="notice_update_Action.jsp?board_code=<%=board_code%>" method="POST">
             <table>
             	<tr>
@@ -55,8 +65,8 @@
             	</tr>
 			</table>
            <div class="btn_area">
-				<input type="submit" class="submit" value="수정하기">
-				<input type="submit" class="submit" value="취소하기" Onclick="location.href='notice.det'">
+				<input type="submit" class="submit" value="수정하기" >
+				<input type="button" class="cancel" value="취소하기" Onclick="location.href='./notice.jsp'">
             </div>
 		</form>
 	</div>
