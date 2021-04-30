@@ -1,7 +1,8 @@
+<%@page import="cash.CashDTO"%>
+<%@page import="cash.CashDAO"%>
 <%@page import="product.ProductDAO"%>
 <%@page import="product.ProductDTO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,12 +132,21 @@
 			padding: 20px;
 		}
 	</style>
-		<%
-			request.setCharacterEncoding("utf-8");
-			int product_code = Integer.parseInt(request.getParameter("product_code"));
-			ProductDAO productDAO = new ProductDAO();
-			ProductDTO productDTO = productDAO.getProduct(product_code);
-		%>
+</head>
+<body>
+	<!--헤더-->
+	<%@ include file="../common/header.jsp" %>
+	<%			
+		request.setCharacterEncoding("utf-8");
+		int product_code = Integer.parseInt(request.getParameter("product_code"));
+		ProductDAO productDAO = new ProductDAO();
+		ProductDTO productDTO = productDAO.getProduct(product_code);
+		
+		CashDAO cashDAO = new CashDAO();
+		CashDTO cashDTO = cashDAO.infoCash(id);
+	
+		
+	%>
 	<script>
 		function auction(){
 			if($("#price").val() == ""){
@@ -155,19 +165,19 @@
 				alert("최고가보다 높게 입력할 수 없습니다.");
 				return;
 			}
+			if(($("#price").val()*0.1) > "<%=cashDTO.getAmount()%>"){
+				alert("금액이 부족합니다 충전 후 다시 이용해주세요.");
+				return;
+			}
+			$("#auction").attr("action","./action_result.jsp");
 		}
 	</script>
-</head>
-<body>
-	<!--헤더-->
-	<%@ include file="../common/header.jsp" %>
 	<!--메인컨텐츠-->
 	<div class="container">
 		<form action="" method="post" id="search_box">
 			<input type="search" id="keyword" name="keyword">
 			<input type="submit" value="제출" id="submit_btn">
 		</form>
-
 		<div class="titleArea">
 			<h2>상품상세</h2>
 		</div>
@@ -269,7 +279,7 @@
 					<% }else if(id !=null && id.equals(productDTO.getUser_id())){%>	
 						<p>해당 상품 판매자는 경매에 참여 하실 수 없습니다.</p>
 					<% }else{%>
-					<form method="post" style="display:inline;">
+					<form method="post" style="display:inline;" id="auction">
 						<input type="number" placeholder="희망입찰가" name="price" id="price" step="100">
 
 						<button type="submit" class="submit" onclick="auction()" id="submit">입찰하기</button>

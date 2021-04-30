@@ -100,11 +100,11 @@
 			<h2>상품리스트</h2>
 		</div>
 		<ul class="product_list">
-				<%
+				<%	
 					int category_no = Integer.parseInt(request.getParameter("categoryNo"));
 					ProductDAO productDAO = new ProductDAO();
 					List<ProductDTO> products = productDAO.findProducts(category_no);
-					if(products.size()==0){
+					if(products.size()==0 ){
 				%>
 					<div class="noProduct">
 						<h1>등록된 상품이 없습니다.</h1>
