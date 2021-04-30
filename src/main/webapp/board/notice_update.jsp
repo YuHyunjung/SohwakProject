@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="board.BoardDAO" %>
+<%@ page import="board.BoardDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,25 +24,6 @@
 	    }
 	</style>
 </head>
-<script>
-	function Insert(){
-		var insertFrame = document.insertFrame;
-		if(!insertFrame.board_title.value){
-			alert("글 제목을 작성해주세요");
-			insertFrame.board_title.focus();
-			return;
-		}
-		
-		if(!insertFrame.board_content.value){
-			alert("글 내용을 작성해주세요");
-			insertFrame.board_content.focus();
-			return;
-		}
-		
-		insertFrame.submit();
-	}
-	
-</script>
 <body>
 	<!--헤더-->
 	<%@ include file="../common/header.jsp" %>
@@ -58,9 +41,9 @@
 	%>
 	<div class="container">
 		<div class="titleArea">
-			<h2>공지사항작성</h2>
+			<h2>공지사항수정</h2>
 		</div>
-		<form action="board_AddAction.jsp" method="POST">
+		<form action="notice_update_Action.jsp?board_code=<%=board_code%>" method="POST">
             <table>
             	<tr>
             		<th>제목</th>
@@ -72,12 +55,13 @@
             	</tr>
 			</table>
            <div class="btn_area">
-				<input type="submit" class="submit" Onclick="insert()" value="등록">
-				<input type="reset" name="reset" id="reset" value="다시작성하기">
+				<input type="submit" class="submit" value="수정하기">
+				<input type="submit" class="submit" value="취소하기" Onclick="location.href='notice.det'">
             </div>
 		</form>
 	</div>
-	
+		}
+	%>
 	<!--푸터-->
 	<%@ include file="../common/footer.jsp" %>
 </body>

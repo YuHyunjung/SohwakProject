@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="board.BoardDAO" %>
 <%@ page import="board.BoardDTO" %>
+<%@ page import="java.io.PrintWriter" %>
 
 
 <html>

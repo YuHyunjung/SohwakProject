@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import product.CategoryDTO;
+
+
 import util.DBConnection;
 
 public class BoardDAO {
@@ -72,5 +73,55 @@ public class BoardDAO {
 		return boardList;
 	}
 	
+	//게시물 상세보기
+	public BoardDTO getDetail(int board_code) {
+		Connection conn = null;
+		String sql = "SELECT * FROM board where board_code=?";
+		
+
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,board_code);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setTitle(rs.getString(1));
+				dto.setDiscriprion(rs.getString(2));
+				dto.setBoard_date(rs.getString(3));
+				return dto;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		} return null;
+	}
 	
+	//게시물 수정
+	public int update(int board_code, String title, String discriprion) {
+		Connection conn = null;
+		try {
+			String sql = "UPDATE board SET Title = ?, discriprion = ? where board_code = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2,discriprion);
+			pstmt.setInt(3, board_code);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		} return -1;
+	}
+	
+	//게시글 삭제
+	public int delete(int board_code) {
+		Connection conn = null;
+		String sql = "DELETE from board where board_code=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_code);
+			return pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }
+
