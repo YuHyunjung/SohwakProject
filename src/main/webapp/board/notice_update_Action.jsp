@@ -48,7 +48,7 @@
 		} else{
 			if(request.getParameter("title") == null||request.getParameter("discriprion") == null ||
 					request.getParameter("title").equals("")||request.getParameter("discriprion").equals("")){
-				//입력받은 사항에 null이나 ""이 있는 경우 다시 입력하도록 수정페이지로 돌아감
+				
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('입력이 안 된 사항이 있습니다.')");
@@ -59,7 +59,7 @@
 				int result = boardDAO.update(board_code, request.getParameter("title"), request.getParameter("discriprion"));
 				
 			
-				if (result == -1) { //수정 오류
+				if (result == -1) { 
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('글수정에 실패하였습니다.')");
