@@ -5,6 +5,7 @@
 <%@ page import="java.io.PrintWriter" %>
 
 
+
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -40,8 +41,8 @@
 				for(int i=0;i<boardList.size();i++){	
 			%>
            <tr>
-               <td><%=boardList.get(i).getBoard_code() %></td>
-               <td><a href="./notice_deetail.jsp?board_code=<%=boardList.get(i).getBoard_code()%>"><%=boardList.get(i).getTitle() %></a></td>
+               <td><%=i+1 %></td>
+               <td><a href="./notice_detail.jsp?board_code=<%=boardList.get(i).getBoard_code()%>"><%=boardList.get(i).getTitle() %></a></td>
                <td><%=boardList.get(i).getBoard_date() %></td>
            </tr>
            <%

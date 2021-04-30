@@ -12,7 +12,7 @@ import util.DBConnection;
 
 public class BoardDAO {
 
-	//게시판 작성
+	//게시판 작성 // admin1
 	public int board_AddAction(String title, String discriprion) {
 		Connection conn = null;
 		String sql = "INSERT INTO BOARD(title, discriprion) VALUES(?, ?)";
@@ -80,14 +80,15 @@ public class BoardDAO {
 		
 
 		try {
+			conn = DBConnection.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,board_code);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();
-				dto.setTitle(rs.getString(1));
-				dto.setDiscriprion(rs.getString(2));
-				dto.setBoard_date(rs.getString(3));
+				dto.setTitle(rs.getString("title"));
+				dto.setDiscriprion(rs.getString("discriprion"));
+				dto.setBoard_date(rs.getString("board_date"));
 				return dto;
 			}
 		}catch (Exception e) {
@@ -99,11 +100,12 @@ public class BoardDAO {
 	public int update(int board_code, String title, String discriprion) {
 		Connection conn = null;
 		try {
-			String sql = "UPDATE board SET Title = ?, discriprion = ? where board_code = ?";
+			conn = DBConnection.getConnection();
+			String sql = "UPDATE board SET title = ?, discriprion = ? where board_code = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, title);
+			pstmt.setString(1,title);
 			pstmt.setString(2,discriprion);
-			pstmt.setInt(3, board_code);
+			pstmt.setInt(3,board_code);
 			return pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -115,6 +117,7 @@ public class BoardDAO {
 		Connection conn = null;
 		String sql = "DELETE from board where board_code=?";
 		try {
+			conn=DBConnection.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_code);
 			return pstmt.executeUpdate();
