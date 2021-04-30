@@ -206,7 +206,7 @@ function regist(){
 					<th>경매종료일</th>
 					<td>
 						<input type="hidden" id="now_date" name="now_date" value="<%=sf.format(nowTime)%>"/>
-						<input type="text" id="datepicker" name="end_date" onlyread/>
+						<input autocomplete="off" type="text" id="datepicker" name="end_date" onlyread/>
 						<input type="time" name="end_time" id="end_time"/>
 						<span>등록일로부터 최대 7일</span>
 					</td>

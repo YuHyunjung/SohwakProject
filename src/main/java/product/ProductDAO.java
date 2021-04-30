@@ -18,7 +18,7 @@ public class ProductDAO {
 		
 		try {
 			conn = DBConnection.getConnection();
-			String sql = "INSERT INTO PRODUCT(product_name, user_id, category_no, min_price, max_price, current_price, regist_date, end_date, product_discription,thumnail,img1,img2) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO PRODUCT(product_name, user_id, category_no, min_price, max_price, current_price, regist_date, end_date, product_discription,thumnail,img1,img2,state) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, product_name);
 			pstmt.setString(2, user_id);
@@ -32,6 +32,7 @@ public class ProductDAO {
 			pstmt.setString(10, filename1);
 			pstmt.setString(11, filename2);
 			pstmt.setString(12, filename3);
+			pstmt.setString(13, "경매전");
 			pstmt.executeUpdate();
 			result = true;
 		}catch (Exception e) {
@@ -159,6 +160,8 @@ public class ProductDAO {
 				dto.setThumnail(rs.getString("thumnail"));
 				dto.setImg1(rs.getString("img1"));
 				dto.setImg2(rs.getString("img2"));
+				dto.setBidder(rs.getString("bidder"));
+				dto.setState(rs.getString("state"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -171,6 +174,30 @@ public class ProductDAO {
 			}
 		}
 		return dto;
+	}
+	
+	//상품삭제 - 해야해
+	public int deleteProduct(int product_code) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "DELETE FROM product WHERE product_code=? and state='경매전' or state='경매종료'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, product_code);
+			result = pstmt.executeUpdate();	//성공하면 1
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return result;
 	}
 	
 }

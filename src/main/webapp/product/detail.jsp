@@ -115,6 +115,9 @@
 			border-style: none;
 			color: white;
 		}
+		.submit:hover, .wish_list:hover{
+			background-color: #999999;
+		}
 		.top::after{
 			clear: both;
 			content: "";
@@ -128,6 +131,32 @@
 			padding: 20px;
 		}
 	</style>
+		<%
+			request.setCharacterEncoding("utf-8");
+			int product_code = Integer.parseInt(request.getParameter("product_code"));
+			ProductDAO productDAO = new ProductDAO();
+			ProductDTO productDTO = productDAO.getProduct(product_code);
+		%>
+	<script>
+		function auction(){
+			if($("#price").val() == ""){
+				alert("입찰가를 입력해 주세요");
+				return
+			}
+			if($("#price").val() < "<%=productDTO.getCurrent_price()%>"){
+				alert("현재입찰가보다 낮게 입력 할 수 없습니다.");
+				return;
+			}
+			if($("#price").val() == "<%=productDTO.getCurrent_price()%>"){
+				alert("현재입찰가와 같게 입력 할 수 없습니다.");
+				return;
+			}
+			if($("#price").val() > "<%=productDTO.getMax_price()%>"){
+				alert("최고가보다 높게 입력할 수 없습니다.");
+				return;
+			}
+		}
+	</script>
 </head>
 <body>
 	<!--헤더-->
@@ -138,12 +167,7 @@
 			<input type="search" id="keyword" name="keyword">
 			<input type="submit" value="제출" id="submit_btn">
 		</form>
-		<%
-			request.setCharacterEncoding("utf-8");
-			int product_code = Integer.parseInt(request.getParameter("product_code"));
-			ProductDAO productDAO = new ProductDAO();
-			ProductDTO productDTO = productDAO.getProduct(product_code);
-		%>
+
 		<div class="titleArea">
 			<h2>상품상세</h2>
 		</div>
@@ -194,7 +218,38 @@
 						</tr>
 						<tr>
 							<th>타임</th>
-							<td>00일 00시 00초</td>
+								<script>
+									$(document).ready(function(){
+									  tid=setInterval('msg_time()',1000); // 타이머 1초간격으로 수행
+									});
+									 
+									var stDate = new Date().getTime();
+									var edDate = new Date("<%=productDTO.getEnd_date()%>").getTime();
+									var RemainDate = edDate - stDate;
+									
+									function msg_time(){
+									  var days = Math.floor(RemainDate / (1000 * 60 * 60 * 24));
+									  var hours = Math.floor((RemainDate % (1000 * 60 * 60 * 24)) / (1000*60*60));
+									  var miniutes = Math.floor((RemainDate % (1000 * 60 * 60)) / (1000*60));
+									  var seconds = Math.floor((RemainDate % (1000 * 60)) / 1000);
+									
+									  m = days+"일 "+hours + "시 "+miniutes+"분 " + seconds+"초";
+									  
+									  document.all.timer.innerHTML = m;   // div 영역에 보여줌 
+									  
+									  if (RemainDate < 0) {      
+									    // 시간이 종료 되었으면..
+									    clearInterval(tid);   // 타이머 해제
+									    $('#price').css("display","none");
+									    $('#submit').css("display","none");
+									    $('#wish_list').css("display","none");
+									    document.all.timer.innerHTML = "경매가 종료되었습니다.";
+									  }else{
+									    RemainDate = RemainDate - 1000; // 남은시간 -1초
+									  }
+									}
+								</script>
+							<td><div id="timer"></div></td>
 						</tr>
 						<tr>
 							<th>최저가</th>
@@ -209,9 +264,18 @@
 							<td><%=productDTO.getCurrent_price() %></td>
 						</tr>
 					</table>
-					<input type="number" placeholder="희망입찰가" name="price" id="price" step="100">
-					<button type="submit" class="submit">입찰하기</button>
-					<button type="button" class="wish_list" onclick="location.href='/html/myshop/wish_list.html'">장바구니</button>
+					<%if(id == null){ %>
+						<p>로그인 후 경매 참여가능합니다.</p>
+					<% }else if(id !=null && id.equals(productDTO.getUser_id())){%>	
+						<p>해당 상품 판매자는 경매에 참여 하실 수 없습니다.</p>
+					<% }else{%>
+					<form method="post" style="display:inline;">
+						<input type="number" placeholder="희망입찰가" name="price" id="price" step="100">
+
+						<button type="submit" class="submit" onclick="auction()" id="submit">입찰하기</button>
+						<button type="button" class="wish_list" onclick="location.href='./myshop/wish_list.jsp'" id="wish_list">장바구니</button>
+					</form>
+					<%} %>
 				</div>
 			</div>
 			<div class="description">

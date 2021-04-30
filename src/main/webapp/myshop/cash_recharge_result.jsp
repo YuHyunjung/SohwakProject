@@ -67,7 +67,7 @@
 
 		CashDAO cashDAO = new CashDAO();
 		
-			//userDAO 객체 생성
+		//userDAO 객체 생성
 		int result = cashDAO.chargeCash(user_id,time,charge_withdraw,amount,total); //1이면 성공 -1이면 실패 
 		if(result == 1) {
 	%>
