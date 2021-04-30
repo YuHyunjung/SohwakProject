@@ -15,7 +15,21 @@ public class ProductDTO {
 	private String thumnail;
 	private String img1;
 	private String img2;
+	private String bidder;
+	private String state;
 	
+	public String getBidder() {
+		return bidder;
+	}
+	public void setBidder(String bidder) {
+		this.bidder = bidder;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public Integer getProduct_code() {
 		return product_code;
 	}
