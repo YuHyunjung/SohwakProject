@@ -94,5 +94,34 @@ public class BoardDAO {
 			e.printStackTrace();
 		} return null;
 	}
+	
+	//게시물 수정
+	public int update(int board_code, String title, String discriprion) {
+		Connection conn = null;
+		try {
+			String sql = "UPDATE board SET Title = ?, discriprion = ? where board_code = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2,discriprion);
+			pstmt.setInt(3, board_code);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		} return -1;
+	}
+	
+	//게시글 삭제
+	public int delete(int board_code) {
+		Connection conn = null;
+		String sql = "DELETE from board where board_code=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_code);
+			return pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }
 

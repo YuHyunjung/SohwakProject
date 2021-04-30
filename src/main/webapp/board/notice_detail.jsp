@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="board.BoardDAO" %>
 <%@ page import="board.BoardDTO" %>
+<%@ page import="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,6 @@
 	<div class="titleArea">
  	  <h2>Notice</h2>
    		<br>
-    <form action="" method="POST" target="">
        <table>
 		   <thead>
            <tr>
@@ -32,26 +32,44 @@
 			   <th>작성일</th>
            </tr></thead>
 		   <tbody>
-		   	<%
-				BoardDAO dao = new BoardDAO();	//BoardDAO 불러오려면 import 해야하는데 안했어
-				BoardDTO dto = new BoardDAO().getDetail(board_code);
-			
+		   <%
+			String userID = null;
+			if(session.getAttribute("idKey") != null){ 
+			userID = (String) session.getAttribute("idKey");
+			}	
+		
+			int board_code = 0;
+			if(request.getParameter("board_code") != null){ 
+			board_code = Integer.parseInt(request.getParameter("board_code")); 
+			}
+		
+			if( board_code == 0){ 
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('유효하지 않은 글입니다.')"); 
+			script.println("location.href = 'board.jsp'");
+			script.println("</script>");
+			}
+			BoardDTO dto = new BoardDAO().getDetail(board_code);
 			%>
            <tr>
-               <td><a href="./notice_deetail.jsp?board_code=>"/><%=dto.getTitle() %></td>
+               <td><%=dto.getTitle() %></td>
                <td><%=dto.getDiscriprion() %></td>
 			   <td><%=dto.getBoard_date() %></td>
            </tr></tbody>
-		   <%
-				
-		   %>
+		   
        </table>
         <fieldset>
-            <input type="button" id="submit" name="submit" value="목록" onclick="../board/notice.jsp'">
-			<input type="button" id="update" name="update" value="수정" onclick="../board/notice_modify.jsp'">
-			<input type="button" id="delete" name="delete" value="삭제" onclick="../board/notice_modify.jsp'">
+            <input type="button" value="목록" onclick="location.href='notice.jsp'"/>
+            <%
+				if(userID != null && userID.equals(session.getAttribute("idkey"))){
+			%>
+			<input type="button" value="수정" onclick="location.href='update.jsp?board_code=<%=board_code%>'"/>
+			<input type="button" value="삭제" onclick="confirm('글을 삭제하시겠습니까?');location.href=notice_delete.jsp?board_code=<%=board_code%>'"/>
         </fieldset>
-    </form>
+        <%
+        }
+        %>
     </div>
 	</div>
 
