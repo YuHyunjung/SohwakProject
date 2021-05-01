@@ -1,6 +1,12 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page import="product.ProductDTO"%>
 <%@ page import="product.ProductDAO"%>
+<jsp:useBean id="dao" class="product.ProductDAO" />
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="product.CategoryDTO"%>
+<%@ page import="product.CategoryDAO"%>
+
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +25,7 @@
 	}
 	#search_box{
 		width: 600px;
+		
 		margin: 0 auto;
 	}
 	#keyword{
@@ -71,18 +78,16 @@
 		text-overflow:ellipsis;
 		white-space:nowrap;
 	}
-	.noProduct{
-	    min-height: 300px;
-    	line-height: 300px;
-	}
-	.noProduct>h1{
-		text-align:center;
-	}
 </style>
 <script>
-	$(document).ready(function(){
-	  tid=setInterval('msg_time()',1000); // 타이머 1초간격으로 수행
-	})
+function fn_submit(){
+	var keyword = $("#keyword").val();
+	if(keyword == ''){
+		alert('검색어를 입력해주세요.');
+		return;
+	}
+	$("#search_box").submit();
+}
 </script>
 </head>
 <body>
@@ -91,52 +96,39 @@
 	
 	<!--메인컨텐츠-->
 	<div class="container">
-		<form action="" method="post" id="search_box">
+		<form action="list.jsp" method="get" id="search_box" onsubmit="fn_submit();">
 			<input type="search" id="keyword" name="keyword">
 			<input type="submit" id="submit_btn">
-		</form>
+			<input type="hidden" name="categoryNo" id="categoryNo" value="<%=request.getParameter("categoryNo")%>"/>
+
+		
 		<div class="titleArea">
 		<!--h2안에 제목만 바꿔주세요-->
 			<h2>상품리스트</h2>
 		</div>
 		<ul class="product_list">
-				<%	
-					int category_no = Integer.parseInt(request.getParameter("categoryNo"));
+				<%
+					String str_categoryNo = request.getParameter("categoryNo");
+					
+					String keyword = request.getParameter("keyword");
 					ProductDAO productDAO = new ProductDAO();
-					List<ProductDTO> products = productDAO.findProducts(category_no);
-					if(products.size()==0 ){
-				%>
-					<div class="noProduct">
-						<h1>등록된 상품이 없습니다.</h1>
-					</div>
-				<%	
+					List<ProductDTO> products = new ArrayList<ProductDTO>();
+					if(str_categoryNo != null){
+						int category_no = Integer.parseInt(str_categoryNo);
+						if(keyword != null){
+							products = productDAO.findProducts(category_no,keyword);
+						}else{
+							products = productDAO.findProducts(category_no);
+						}
+					}else{
+						products = productDAO.findSearchProducts(keyword);
 					}
+					
+					
+					
+					
 					for(int i=0;i<products.size();i++){
 				%>
-				<script>
-					var stDate = new Date().getTime();
-					var edDate = new Date("<%=products.get(i).getEnd_date()%>").getTime();
-					var RemainDate = edDate - stDate;
-					
-					function msg_time(){
-					  var days = Math.floor(RemainDate / (1000 * 60 * 60 * 24));
-					  var hours = Math.floor((RemainDate % (1000 * 60 * 60 * 24)) / (1000*60*60));
-					  var miniutes = Math.floor((RemainDate % (1000 * 60 * 60)) / (1000*60));
-					  var seconds = Math.floor((RemainDate % (1000 * 60)) / 1000);
-					
-					  m = days+"일 "+hours + "시 "+miniutes+"분 " + seconds+"초";
-					  
-					  document.all.timer.innerHTML = m;   // div 영역에 보여줌 
-					  
-					  if (RemainDate < 0) {      
-						  clearInterval(tid);   // 타이머 해제
-						    document.all.timer.innerHTML = "경매 종료";
-						  	$('#timer').css("color","red");
-					  }else{
-					    RemainDate = RemainDate - 1000; // 남은시간 -1초
-					  }
-					}
-				</script>
 			<!--상품리스트-->
 			<li class="item">
 				<div class="thumbnail">
@@ -149,7 +141,7 @@
 								</tr>
 								<tr>
 									<th>경매종료</th>
-									<td style="font-size:9pt;"><div id="timer"></div></td>
+									<td style="font-size:9pt;"><%=products.get(i).getEnd_date()%></div></td>
 								</tr>
 								<tr>
 									<th>최저가</th>
@@ -171,13 +163,17 @@
 			<%} %>
 		</ul>
 		<div class="paging">
-		<!-- 
 			<a href="#none" class="prev"><img src="../img/prev_btn.png" alt="이전페이지"></a>
 			<ol>
-				<li><a href="./list.jsp?categoryNo=<%=category_no%>&page="></a></li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
 			</ol>
-			<a href="#none" class="next"><img src="../img/next_btn.png" alt="다음페이지"></a> -->
+			<a href="#none" class="next"><img src="../img/next_btn.png" alt="다음페이지"></a>
 		</div>
+		</form>
 	</div>
 	
 	<!--푸터-->
