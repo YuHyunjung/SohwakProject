@@ -81,8 +81,38 @@
 </style>
 <script>
 	$(document).ready(function(){
-	  tid=setInterval('msg_time()',1000); // 타이머 1초간격으로 수행
+	  setTimerrr();
 	})
+	
+	function setTimerrr() {
+		var timers = $(".timer")
+		timers.each(function(index,timer) {
+			tid=setInterval(msg_time, 1000, timer);
+		})
+	}
+	
+	function msg_time(timer){
+		var nowDate = new Date().getTime();
+		var endDate = new Date($(timer).attr("attr-enddate")).getTime();
+		var RemainDate = endDate - nowDate;
+		
+	  var days = Math.floor(RemainDate / (1000 * 60 * 60 * 24));
+	  var hours = Math.floor((RemainDate % (1000 * 60 * 60 * 24)) / (1000*60*60));
+	  var miniutes = Math.floor((RemainDate % (1000 * 60 * 60)) / (1000*60));
+	  var seconds = Math.floor((RemainDate % (1000 * 60)) / 1000);
+	
+	  m = days+"일 "+hours + "시 "+miniutes+"분 " + seconds+"초";
+	  
+	  $(timer).html(m);   // div 영역에 보여줌 
+	  
+	  if (RemainDate < 0) {      
+		 //clearInterval(tid);   // 타이머 해제
+		 $(timer).text("경매 종료");
+		 $(timer).css("color","red");
+	  }else{
+	    RemainDate = RemainDate - 1000; // 남은시간 -1초
+	  }
+	}
 </script>
 </head>
 <body>
@@ -113,30 +143,6 @@
 					}
 					for(int i=0;i<products.size();i++){
 				%>
-				<script>
-					var stDate = new Date().getTime();
-					var edDate = new Date("<%=products.get(i).getEnd_date()%>").getTime();
-					var RemainDate = edDate - stDate;
-					
-					function msg_time(){
-					  var days = Math.floor(RemainDate / (1000 * 60 * 60 * 24));
-					  var hours = Math.floor((RemainDate % (1000 * 60 * 60 * 24)) / (1000*60*60));
-					  var miniutes = Math.floor((RemainDate % (1000 * 60 * 60)) / (1000*60));
-					  var seconds = Math.floor((RemainDate % (1000 * 60)) / 1000);
-					
-					  m = days+"일 "+hours + "시 "+miniutes+"분 " + seconds+"초";
-					  
-					  document.all.timer.innerHTML = m;   // div 영역에 보여줌 
-					  
-					  if (RemainDate < 0) {      
-						  clearInterval(tid);   // 타이머 해제
-						    document.all.timer.innerHTML = "경매 종료";
-						  	$('#timer').css("color","red");
-					  }else{
-					    RemainDate = RemainDate - 1000; // 남은시간 -1초
-					  }
-					}
-				</script>
 			<!--상품리스트-->
 			<li class="item">
 				<div class="thumbnail">
@@ -149,7 +155,7 @@
 								</tr>
 								<tr>
 									<th>경매종료</th>
-									<td style="font-size:9pt;"><div id="timer"></div></td>
+									<td style="font-size:9pt;"><div class="timer" attr-enddate="<%=products.get(i).getEnd_date()%>"></div></td>
 								</tr>
 								<tr>
 									<th>최저가</th>

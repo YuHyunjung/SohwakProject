@@ -51,4 +51,12 @@ public class CashDTO {
 	public void setProcess_state(String process_state) {
 		this.process_state = process_state;
 	}
+	
+	public boolean canBidding(int new_price) {
+		if(total < new_price) {
+			return false;
+		}
+		
+		return true;
+	}
 }

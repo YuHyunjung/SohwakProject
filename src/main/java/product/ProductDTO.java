@@ -1,5 +1,7 @@
 package product;
 
+import user.UserDTO;
+
 public class ProductDTO {
 
 	private Integer product_code;
@@ -107,6 +109,22 @@ public class ProductDTO {
 	}
 	public void setImg2(String img2) {
 		this.img2 = img2;
+	}
+	
+	public boolean canBidding(int new_price, String newBidderId) {
+		if(current_price>new_price) {
+			return false;
+		}
+		
+		if (user_id.equals(newBidderId)) {
+			return false;
+		}
+		
+		if(max_price<new_price) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 }

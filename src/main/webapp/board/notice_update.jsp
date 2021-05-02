@@ -46,22 +46,19 @@
 		<%
 		int board_code = Integer.parseInt(request.getParameter("board_code"));
 		
-		String board_title = request.getParameter("board_title");
-		String board_content = request.getParameter("board_content");
-		
 		BoardDAO dao = new BoardDAO();
-		int result = dao.board_AddAction(board_title, board_content);
+		BoardDTO boardDTO = dao.getDetail(board_code);
 		
 		%>
 		<form action="notice_update_Action.jsp?board_code=<%=board_code%>" method="POST">
             <table>
             	<tr>
             		<th>제목</th>
-            		<td><input type="text" name="board_title" id="board_title"></td>
+            		<td><input type="text" name="board_title" id="board_title" value="<%=boardDTO.getTitle()%>"></td>
             	</tr>
             	<tr>
             		<th>내용</th>
-            		<td><textarea name="board_content" id="board_content" cols="55" rows="20"></textarea></td>
+            		<td><textarea name="board_content" id="board_content" cols="55" rows="20" ><%=boardDTO.getDiscriprion()%></textarea></td>
             	</tr>
 			</table>
            <div class="btn_area">

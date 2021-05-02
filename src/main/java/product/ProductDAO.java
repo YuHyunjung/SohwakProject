@@ -3,14 +3,16 @@ package product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import util.DBConnection;
 
 public class ProductDAO {
 	
-	//�긽�뭹�벑濡�
+	//상품등록
 	public boolean registProduct(String product_name, String user_id, int category_no, int min_price, int max_price, int current_price,String regist_date, String end_time, String end_date, String product_discription,String filename1,String filename2,String filename3){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -93,7 +95,7 @@ public class ProductDAO {
 	}
 	
 	
-	//�긽�뭹媛��졇�삤湲�
+	//상품검색
 	public List<ProductDTO> findSearchProducts(String keyword){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -134,7 +136,7 @@ public class ProductDAO {
 		return productyList;
 	}
 	
-	//�긽�뭹�긽�꽭蹂닿린
+	//상품가져오기
 	public ProductDTO getProduct(int product_code) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -176,6 +178,28 @@ public class ProductDAO {
 		return dto;
 	}
 	
+	public boolean auction(int current_price) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn=DBConnection.getConnection();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		
+		
+		return result;
+	}
+	
 	//상품삭제 - 해야해
 	public int deleteProduct(int product_code) {
 		Connection conn = null;
@@ -197,6 +221,57 @@ public class ProductDAO {
 				throw new RuntimeException(e.getMessage());
 			}
 		}
+		return result;
+	}
+	
+	//경매
+	public int auction(int product_code, int new_price, String user_id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "update product set current_price=?, bidder=?,state='경매중' where product_code=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, new_price);
+			pstmt.setString(2, user_id);
+			pstmt.setInt(3, product_code);
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return result;
+	}
+	
+	//최종낙찰
+	public int final_winbid(int product_code) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = -1;
+		
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "update product set state='경매종료' where product_code=? ";
+			pstmt.setInt(1, product_code);		
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		
 		return result;
 	}
 	

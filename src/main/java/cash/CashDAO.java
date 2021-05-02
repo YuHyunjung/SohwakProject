@@ -116,5 +116,81 @@ public class CashDAO {
 		}
 		return v;
 	}
+	
+	public boolean refund(int product_code, int old_price, String old_user) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
+		
+		String refundDate = format.format(time);
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "select total from cash where user_id=? order by time desc limit 1";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, old_user);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String sql1 = "Insert into cash(user_id, time, charge_withdraw, amount, total, product_code) values(?,?,?,?,?,?)";
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setString(1,old_user);
+				pstmt.setString(2, refundDate);
+				pstmt.setString(3, "보증금 환불");
+				pstmt.setInt(4, old_price);
+				pstmt.setInt(5, rs.getInt("total")+old_price);
+				pstmt.setInt(6, product_code);
+				pstmt.executeUpdate();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return result;
+	}
+	
+	public boolean auction(int product_code, int new_price, String user_id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
+		
+		String auctionDate = format.format(time);
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "select total from cash where user_id=? order by time desc limit 1";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String sql1 = "Insert into cash(user_id, time, charge_withdraw, amount, total, product_code) values(?,?,?,?,?,?)";
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setString(1,user_id);
+				pstmt.setString(2, auctionDate);
+				pstmt.setString(3, "입찰 보증금");
+				pstmt.setInt(4, new_price);
+				pstmt.setInt(5, rs.getInt("total")-new_price);
+				pstmt.setInt(6, product_code);
+				pstmt.executeUpdate();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return result;
+	}
 }
 	

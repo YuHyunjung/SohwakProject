@@ -165,7 +165,7 @@
 				alert("최고가보다 높게 입력할 수 없습니다.");
 				return;
 			}
-			if(($("#price").val()*0.1) > "<%=cashDTO.getAmount()%>"){
+			if($("#price").val() > "<%=cashDTO.getAmount()%>"){
 				alert("금액이 부족합니다 충전 후 다시 이용해주세요.");
 				return;
 			}
@@ -272,6 +272,7 @@
 						<tr>
 							<th>현재입찰가</th>
 							<td><%=productDTO.getCurrent_price() %></td>
+						
 						</tr>
 					</table>
 					<%if(id == null){ %>
@@ -280,8 +281,8 @@
 						<p>해당 상품 판매자는 경매에 참여 하실 수 없습니다.</p>
 					<% }else{%>
 					<form method="post" style="display:inline;" id="auction">
+						<input type="hidden" name="product_code" value="<%=productDTO.getProduct_code() %>">
 						<input type="number" placeholder="희망입찰가" name="price" id="price" step="100">
-
 						<button type="submit" class="submit" onclick="auction()" id="submit">입찰하기</button>
 						<button type="button" class="wish_list" onclick="location.href='./myshop/wish_list.jsp'" id="wish_list">장바구니</button>
 					</form>
