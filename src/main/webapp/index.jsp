@@ -19,7 +19,6 @@
 	<meta charset="UTF-8">
 	<title>메인페이지</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
 	<script type="text/javascript" src="javascript/slideShow.js"></script>
 	<link rel="stylesheet" href="css/common.css">
 	<link rel="stylesheet" href="css/index.css">
@@ -75,7 +74,7 @@
 	<div class="container">
 		<div class="serch_box">
 		<h1>찾으시는 물건이 있으신가요?</h1>
-			<form action="search/search.jsp" method="post">
+			<form action="product/list.jsp" method="post">
 				<input type="search" id="keyword" name="keyword">
 				<input type="submit" id="submit_btn">
 			</form>
