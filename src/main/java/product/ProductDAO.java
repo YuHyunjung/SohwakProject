@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -266,7 +267,7 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//최종낙찰
+	//최대금액과 동일시 최종낙찰
 	public int final_winbid(int product_code) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -275,6 +276,7 @@ public class ProductDAO {
 		try {
 			conn = DBConnection.getConnection();
 			String sql = "update product set state='경매종료' where product_code=? ";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, product_code);		
 			result = pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -288,6 +290,30 @@ public class ProductDAO {
 			}
 		}
 		
+		return result;
+	}
+	
+	//경매종료시간과 같을 경우 낙찰
+	public int final_time(LocalDateTime now) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "update product set state = '경매종료' where end_date < ? and state !='경매종료'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, now.toString());
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
 		return result;
 	}
 	

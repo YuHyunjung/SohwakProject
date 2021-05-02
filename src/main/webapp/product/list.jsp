@@ -24,7 +24,7 @@
 		border-bottom: 3px solid #999999; 
 	}
 	#search_box{
-		width: 600px;
+		width: 980px;
 		
 		margin: 0 auto;
 	}
@@ -173,7 +173,6 @@ function fn_submit(){
 								<tr>
 									<th>경매종료</th>
 									<td style="font-size:9pt;"><div class="timer" attr-enddate="<%=products.get(i).getEnd_date()%>"></div></td>
-									<td style="font-size:9pt;"><%=products.get(i).getEnd_date()%></div></td>
 								</tr>
 								<tr>
 									<th>최저가</th>

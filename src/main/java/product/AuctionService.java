@@ -1,5 +1,7 @@
 package product;
 
+import java.time.LocalDateTime;
+
 import cash.CashDAO;
 import cash.CashDTO;
 
@@ -31,6 +33,7 @@ public class AuctionService {
 		cashDao.auction(product_code, new_price, newBidderId);
 		
 		// ÀÔÂû È®Á¤
+		
 		if (product.getMax_price() == new_price) {
 			final_winbid(product_code);
 		}
@@ -38,10 +41,14 @@ public class AuctionService {
 		return true;
 	}
 	
-	public boolean final_winbid(int product_code) {
+	public void final_winbid(int product_code) {
 		ProductDTO product = productDao.getProduct(product_code);
 		productDao.final_winbid(product_code);
-		
-		return true;
+	}
+	
+	public void final_all() {
+		System.out.println("³«Âû È®Á¤ Áß...");
+		LocalDateTime dateTime = LocalDateTime.now();
+		productDao.final_time(dateTime);
 	}
 }

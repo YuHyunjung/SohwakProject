@@ -149,23 +149,24 @@
 	%>
 	<script>
 		function auction(){
-			if($("#price").val() == ""){
+			var price = Number($("#price").val());
+			if(price == ""){
 				alert("입찰가를 입력해 주세요");
 				return
 			}
-			if($("#price").val() < "<%=productDTO.getCurrent_price()%>"){
+			if(price < <%=productDTO.getCurrent_price()%>){
 				alert("현재입찰가보다 낮게 입력 할 수 없습니다.");
 				return;
 			}
-			if($("#price").val() == "<%=productDTO.getCurrent_price()%>"){
+			if(price == <%=productDTO.getCurrent_price()%>){
 				alert("현재입찰가와 같게 입력 할 수 없습니다.");
 				return;
 			}
-			if($("#price").val() > "<%=productDTO.getMax_price()%>"){
+			if(price > <%=productDTO.getMax_price()%>){
 				alert("최고가보다 높게 입력할 수 없습니다.");
 				return;
 			}
-			if($("#price").val() > "<%=cashDTO.getAmount()%>"){
+			if(price > <%=cashDTO.getTotal()%>){
 				alert("금액이 부족합니다 충전 후 다시 이용해주세요.");
 				return;
 			}
