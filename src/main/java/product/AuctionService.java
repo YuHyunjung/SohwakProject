@@ -32,8 +32,7 @@ public class AuctionService {
 		productDao.auction(product_code, new_price, newBidderId);
 		cashDao.auction(product_code, new_price, newBidderId);
 		
-		// 입찰 확정
-		
+		// 입찰 확정 - 최고가 현재가 동일시
 		if (product.getMax_price() == new_price) {
 			final_winbid(product_code);
 		}
@@ -45,7 +44,7 @@ public class AuctionService {
 		ProductDTO product = productDao.getProduct(product_code);
 		productDao.final_winbid(product_code);
 	}
-	
+	//종료시간과 동일시 ( 30초마다 도는중)
 	public void final_all() {
 		System.out.println("낙찰 확정 중...");
 		LocalDateTime dateTime = LocalDateTime.now();
