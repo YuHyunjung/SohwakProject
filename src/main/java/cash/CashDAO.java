@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Vector;
 
@@ -116,7 +117,7 @@ public class CashDAO {
 		}
 		return v;
 	}
-	
+	//보증금환불
 	public boolean refund(int product_code, int old_price, String old_user) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -154,7 +155,7 @@ public class CashDAO {
 		}
 		return result;
 	}
-	
+	//경매
 	public boolean auction(int product_code, int new_price, String user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -191,6 +192,41 @@ public class CashDAO {
 			}
 		}
 		return result;
+	}
+	
+	//판매자 판매 금액 인계
+	public int saleMoney(int product_code) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		LocalDateTime now = LocalDateTime.now();
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "select * from cash c inner join product p on c.user_id=p.user_id where p.product_code=? order by c.time desc limit 1;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, product_code);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String sql1 = "Insert into cash(user_id, time, charge_withdraw, amount, total, product_code) values(?,?,?,?,?,?)";
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setString(1, rs.getString("p.user_id"));
+				pstmt.setString(2, now.toString());
+				pstmt.setString(3, "판매금");
+				pstmt.setInt(4, rs.getInt("p.current_price"));
+				pstmt.setInt(5, rs.getInt("c.total")+rs.getInt("p.current_price"));
+				pstmt.setInt(6, product_code);
+				pstmt.executeUpdate();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return -1;
 	}
 }
 	
