@@ -156,7 +156,7 @@
 						<td><textarea name="message" id="message" cols="45" rows="10"></textarea></td>
 					</tr>
 				</table>
-				<input type="hidden" value="<%=productDTO.getProduct_code() %>" name="product_code">
+				<input type="hidden" value="<%=productDTO.getProduct_code()%>" name="product_code">
 				<button type="submit" class="order">주문서작성완료</button> 
 			</form>
 		</div>
