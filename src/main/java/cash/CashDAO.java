@@ -192,5 +192,32 @@ public class CashDAO {
 		}
 		return result;
 	}
+	//탈퇴할때 현재 캐시가 남아있으면 탈퇴가 안되는 부분
+	public int cashing(String id, String password){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		int result3 = 0;
+		
+		try {
+			conn = DBConnection.getConnection();
+			sql =  "select * from cash where user_id=? and total != 0 order by time desc limit 1";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			result3 = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		
+		return result3;
+	}
 }
 	

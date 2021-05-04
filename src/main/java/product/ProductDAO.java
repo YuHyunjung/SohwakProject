@@ -415,4 +415,73 @@ public class ProductDAO {
 		return productyList;
 	}
 	
+	//판매내역
+	public List<ProductDTO> purchaseList(String user_id){
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    List<ProductDTO> purchaseList = new ArrayList<>(); 
+	      
+	    try {
+	         conn = DBConnection.getConnection();
+	         String sql = "SELECT * FROM product WHERE user_id=? ORDER BY regist_date DESC";
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, user_id);
+	         ResultSet rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	            ProductDTO dto = new ProductDTO();
+	            dto.setProduct_code(rs.getInt("product_code"));
+	            dto.setProduct_name(rs.getString("product_name"));
+	            dto.setUser_id(rs.getString("user_id"));
+	            dto.setMin_price(rs.getInt("min_price"));
+	            dto.setMax_price(rs.getInt("max_price"));
+	            dto.setCurrent_price(rs.getInt("current_price"));
+	            dto.setEnd_date(rs.getString("end_date"));
+	            dto.setDiscription(rs.getString("product_discription"));
+	            dto.setThumnail(rs.getString("thumnail"));
+	            purchaseList.add(dto);
+	         }
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }finally {
+	         try{
+	            if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+	            if ( conn != null ){ conn.close(); conn=null;    }
+	         }catch(Exception e){
+	            throw new RuntimeException(e.getMessage());
+	         }
+	      }
+	      
+	      return purchaseList ;
+	   }
+	//탈퇴부분에서 경매중이면 탈퇴가 안되게하는부분 
+	public int auctioning(String id, String password){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		int result2 = 0;
+		
+		try {
+			conn = DBConnection.getConnection();
+			sql =  "select *  from product where user_id=? or bidder=? and state =='경매중'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			result2 = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		
+		return result2;
+	}
+	
+
+
+	
 }

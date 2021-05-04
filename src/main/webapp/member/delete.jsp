@@ -55,6 +55,10 @@
 	 $("#deleteForm").attr("action","delete_result.jsp");
  }
 </script>
+
+<!-- 해당상품이 경매중이면, select *  from product where user_id=? or bidder=? and state =='경매중' -- ProductDAO
+	그 유저가 캐쉬가 남아있거나, select * from cash where user_id=? and total != 0 order by time desc limit 1; -- CashDAO
+ -->
 </head>
 <body>
 	<!--헤더-->
