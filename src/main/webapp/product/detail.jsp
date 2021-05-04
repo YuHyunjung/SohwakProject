@@ -260,7 +260,12 @@
 									  }
 									}
 								</script>
-							<td><div id="timer"></div></td>
+								<td><%if(productDTO.getState().equals("경매종료")){ %>
+										<p style="color:red;">경매종료</p>
+									<%} else{%>
+									<div id="timer"></div>
+									<%} %>
+								</td>
 						</tr>
 						<tr>
 							<th>최저가</th>
@@ -280,14 +285,15 @@
 						<p>로그인 후 경매 참여가능합니다.</p>
 					<% }else if(id !=null && id.equals(productDTO.getUser_id())){%>	
 						<p>해당 상품 판매자는 경매에 참여 하실 수 없습니다.</p>
-					<% }else{%>
+					<% }else{if(!productDTO.getState().equals("경매종료")){ %>
+									
 					<form method="post" style="display:inline;" id="auction">
 						<input type="hidden" name="product_code" value="<%=productDTO.getProduct_code() %>">
 						<input type="number" placeholder="희망입찰가" name="price" id="price" step="100">
 						<button type="submit" class="submit" onclick="auction()" id="submit">입찰하기</button>
 						<button type="button" class="wish_list" onclick="location.href='./myshop/wish_list.jsp'" id="wish_list">장바구니</button>
 					</form>
-					<%} %>
+					<%} }%>
 				</div>
 			</div>
 			<div class="description">

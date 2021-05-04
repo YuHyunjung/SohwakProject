@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="product.AuctionService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,7 +16,20 @@
 	int product_code = Integer.parseInt(request.getParameter("product_code"));
 	int new_price = Integer.parseInt(request.getParameter("price"));
 	
-	service.auction(product_code, new_price, id);
+	boolean result = service.auction(product_code, new_price, id);
+	if(result){
+		PrintWriter script = response.getWriter(); 
+		script.println("<script>");
+		script.println("alert('입찰되었습니다.')"); 
+		script.println("location.href = '../myshop/auction_history.jsp'");
+		script.println("</script>");
+	}else{
+		PrintWriter script = response.getWriter(); 
+		script.println("<script>");
+		script.println("alert('유효하지 않은 글입니다.')"); 
+		script.println("history.back()");
+		script.println("</script>");
+	}
 %>
 </body>
 </html>

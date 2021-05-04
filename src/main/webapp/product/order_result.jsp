@@ -11,6 +11,7 @@
 <body>
 	<%
 		request.setCharacterEncoding("UTF-8");
+		String id = (String) session.getAttribute("idKey");
 		int product_code = Integer.parseInt(request.getParameter("product_code"));
 		String name = request.getParameter("name");
 		

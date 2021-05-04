@@ -1,3 +1,5 @@
+<%@page import="delivery.DeliveryDTO"%>
+<%@page import="delivery.DeliveryDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="product.ProductDTO"%>
 <%@ page import="product.ProductDAO"%>
@@ -123,7 +125,7 @@ $(document).ready(function(){
 						<th>현재입찰가(최저가/최고가)</th>
 						<th>낙찰 남은 시간</th>
 						<th>현재 상태</th>
-						<th>현재 입찰구매자</th>
+						<th>최종낙찰자정보</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -134,39 +136,66 @@ $(document).ready(function(){
 					ProductDAO productDAO = new ProductDAO();
 					List<ProductDTO> productDTO = productDAO.purchaseList(id);
 					for(int i=0; i<productDTO.size();i++){
+						DeliveryDAO deliDAO = new DeliveryDAO();
+						DeliveryDTO deliDTO = deliDAO.deliveryHistory(productDTO.get(i).getProduct_code());
+						int count = deliDAO.count(productDTO.get(i).getProduct_code());
 				%>
 					<tr>
 						<td><img src="../file/<%=productDTO.get(i).getThumnail() %>" alt="상품이미지" class="product_img"></td>
-						<td><%=productDTO.get(i).getMin_price() %>원/<%=productDTO.get(i).getMax_price() %>원</td>
+						<td><%=productDTO.get(i).getCurrent_price() %><br>
+							(<%=productDTO.get(i).getMin_price() %>원/<%=productDTO.get(i).getMax_price() %>)원</td>
 						<td><div class="timer" attr-enddate="<%=productDTO.get(i).getEnd_date()%>"></div></td>
-						<td><p>경매진행중</p><button type="button" onclick="location.href='/html/product/detail.html'">링크로이동</button>
-						<br>
-						<button type="button" onclick="location.href='/html/product/regist_modify.html'">상품수정</button></td>
-						<td>입찰자입니당</td>
+						<td>
+							<%
+							if(productDTO.get(i).getState().equals("경매전")){
+							%>
+							입찰전<br>
+							<a href="../product/regist_modify.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">상품수정</a>
+							<a href="../product/product_delite.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">상품삭제</a>
+							<%
+							}else if(productDTO.get(i).getState().equals("경매중")){
+							%>
+							경매진행중<br>
+							<a href="../product/detail.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">링크로이동</a>
+							<a href="../product/regist_modify.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">상품수정</a>
+							<%}else if(productDTO.get(i).getState().equals("경매종료")){ 
+								if(count == 0){
+									out.println("경매종료(배송지입력전)");
+								}else if(deliDTO.getState().equals("배송지입력완료")){
+							%>
+								<p>송장번호입력</p>
+								<form method="post" action="./post.jsp">
+									<select name="delivery_company" id="delivery">
+				                        <option value="대한통운" selected>대한통운</option>
+				                        <option value="우체국">우체국</option>
+				                        <option value="한진택배">한진택배</option>
+				                     </select>
+				                     <input type="text" placeholder="송장번호입력" name="tracking_no" required><br>
+				                     <input type="hidden" value="<%=deliDTO.getProduct_code()%>" name="product_code">
+				                     <button type="submit">등록</button>
+			                     </form>
+								<%}else if(deliDTO.getState().equals("송장입력완료")){	//송장입력완료
+									out.println("배송중");
+								}else if(deliDTO.getState().equals("구매확정")){	//구매확정
+									out.println("판매완료");
+								}
+								}%>
+						</td>
+						<td>
+						<%if(productDTO.get(i).getState().equals("경매종료")){ 
+							if(count == 0){
+								out.println("경매종료(배송지입력전)");
+							}else if(deliDTO.getState().equals("배송지입력완료")){%>
+						<p> 구매자이름 : <%=deliDTO.getReceiver() %><br>
+							주소 : <%=deliDTO.getDelivery_address() %><br>
+							전화번호 : <%=deliDTO.getDelivery_phone() %><br>
+							배송메세지 : <%=deliDTO.getMessage() %>
+						</p>
+						<%}
+							}%>
+						</td>
 					</tr>
-					<tr>
-						<td><img src="/img/examlist.jpg" alt="상품이미지" class="product_img"></td>
-						<td>100,000원/200,000원</td>
-						<td>00일 00시 00분</td>
-						<td><p>경매완료(결제전)</p></td>
-						<td>입찰자입니당</td>
-					</tr>
-					<tr>
-						<td><img src="/img/examlist.jpg" alt="상품이미지" class="product_img"></td>
-						<td>100,000원/200,000원</td>
-						<td>00일 00시 00분</td>
-						<td><p>경매완료(결제완료)</p>
-							<select name="delivery" id="delivery">
-								<option value="" selected disabled>택배사선택</option>
-								<option value="대한통운">대한통운</option>
-								<option value="우체국">우체국</option>
-								<option value="한진택배">한진택배</option>
-							</select>
-							<input type="text" placeholder="송장번호입력"><br>
-							<button>등록</button></td>
-							
-						<td>입찰자입니당</td>
-					</tr>
+					
 					<%} %>
 				</tbody>
 			</table>
