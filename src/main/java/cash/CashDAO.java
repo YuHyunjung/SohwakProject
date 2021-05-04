@@ -195,21 +195,20 @@ public class CashDAO {
 	}
 	
 	//판매자 판매 금액 인계
-	public int saleMoney(String saler, int product_code) {
+	public int saleMoney(int product_code) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		LocalDateTime now = LocalDateTime.now();
 		try {
 			conn = DBConnection.getConnection();
-			String sql = "select * from cash c inner join product p on c.user_id=p.user_id where c.user_id=? and p.product_code=? order by c.time desc limit 1;";
+			String sql = "select * from cash c inner join product p on c.user_id=p.user_id where p.product_code=? order by c.time desc limit 1;";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, saler);
-			pstmt.setInt(2, product_code);
+			pstmt.setInt(1, product_code);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				String sql1 = "Insert into cash(user_id, time, charge_withdraw, amount, total, product_code) values(?,?,?,?,?,?)";
 				pstmt = conn.prepareStatement(sql1);
-				pstmt.setString(1, saler);
+				pstmt.setString(1, rs.getString("p.user_id"));
 				pstmt.setString(2, now.toString());
 				pstmt.setString(3, "판매금");
 				pstmt.setInt(4, rs.getInt("p.current_price"));
