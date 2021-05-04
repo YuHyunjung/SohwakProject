@@ -3,7 +3,7 @@
 <%@ page import="board.BoardDAO" %>
 <%@ page import="board.BoardDTO" %>
 <%@ page import="java.io.PrintWriter" %>
-
+<%@ page import="java.util.Vector" %>
 
 
 <html>
@@ -22,6 +22,7 @@
 	<%@ include file="../common/header.jsp" %>
 	
 	<!-- 게시판 메인 -->
+	
 	<div class="container">
 		<div class="titleArea">
 			<h2>Notice</h2>
@@ -34,35 +35,46 @@
                <th>작성일</th>
            
            </tr>
-           	<%
-				BoardDAO dao = new BoardDAO();	
-				
-				List<BoardDTO> boardList = dao.findBoard();	
-				for(int i=0;i<boardList.size();i++){	
-			%>
-           <tr>
-               <td><%=i+1 %></td>
-               <td><a href="./notice_detail.jsp?board_code=<%=boardList.get(i).getBoard_code()%>"><%=boardList.get(i).getTitle() %></a></td>
-               <td><%=boardList.get(i).getBoard_date() %></td>
-           </tr>
            <%
-			}
+           BoardDAO dao = new BoardDAO();
+           int count = dao.SelectCnt("board");
+           String tempStart = request.getParameter("page");
+           
+           int startPage = 0;
+           int onePageCnt =10;
+           count =(int)Math.ceil((double)count/(double)onePageCnt);
+           
+           if(tempStart != null){
+        	   startPage = (Integer.parseInt(tempStart)-1)*onePageCnt;
+           }
+           
+           Vector<BoardDTO> vdo =dao.selectPage("board", startPage, onePageCnt);
+           
            %>
-			
+           <%
+           for(int i=0; i<vdo.size();i++){
+           %>
+           <tr>
+               <td><%=vdo.get(i).getBoard_code()%></td>
+               <td><a href="./notice_detail.jsp?board_code=<%=vdo.get(i).getBoard_code()%>"><%=vdo.get(i).getTitle() %></a></td>
+               <td><%=vdo.get(i).getBoard_date() %></td>
+           </tr>
+			<%} %>
+          		
        </table>
-       
-       
+    
+       	
 		<div class="paging">
-			<a href="#none" class="prev"><img src="../img/prev_btn.png" alt="이전페이지"></a>
+			
 			<ol>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
+		<%
+       		for(int i=1; i<=count; i++){
+       	%>
+				<li><a href="notice.jsp?page=<%=i%>"><%=i%></a></li>
+		<%}; %>
 			</ol>
-			<a href="#none" class="next"><img src="../img/next_btn.png" alt="다음페이지"></a>
 		</div>
+		
 		<%if(id!=null && id.equals("admin1")){%>
         <fieldset>
         	<a href="./notice_write.jsp" id="submit">글쓰기</a>

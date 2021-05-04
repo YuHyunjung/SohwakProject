@@ -3,10 +3,10 @@ package board;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Vector;
 
 import util.DBConnection;
 
@@ -126,5 +126,73 @@ public class BoardDAO {
 		}
 		return -1;
 	}
+	
+	//게시판 전체 수 처리
+	public int SelectCnt(String board) {
+		int result = 0;
+		 Connection conn = null;
+		 ResultSet rs = null;
+		 PreparedStatement pstmt = null;
+		 String sql = "select count(*) from board";
+		 try {
+			 conn = DBConnection.getConnection();
+			 pstmt = conn.prepareStatement(sql);
+			 rs = pstmt.executeQuery();
+			 if(rs.next()) {
+				 result =rs.getInt(1);
+			 }
+		 } catch(SQLException e) {
+			 e.printStackTrace();
+		 } finally {
+			 try {
+				 rs.close();
+				 pstmt.close();
+			 } catch (SQLException e) {
+				 e.printStackTrace();
+			 }
+		 }
+		 return result;
+	}
+	//게시판 페이징 나누는 부분 제한
+	public Vector<BoardDTO> selectPage(String board, int start, int pageCnt){
+		ResultSet rs = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "select * from board limit ?,?";
+		Vector<BoardDTO> vdo = new Vector<BoardDTO>();
+		
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, pageCnt);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setBoard_code(rs.getInt("board_code"));
+				dto.setTitle(rs.getString("title"));
+				dto.setBoard_date(rs.getString("board_date"));
+				vdo.add(dto);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs !=null) {
+					rs.close();
+				}
+				if(pstmt!=null) {
+					pstmt.close();
+				}
+				if(conn!=null) {
+					conn.close();
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return vdo;
+	}
 }
+
 
