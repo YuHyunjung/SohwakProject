@@ -122,7 +122,7 @@ public class ProductDAO {
 				dto.setThumnail(rs.getString("thumnail"));
 				dto.setImg1(rs.getString("img1"));
 				dto.setImg2(rs.getString("img2"));
-
+				dto.setState(rs.getString("state"));
 				productyList.add(dto);
 			}
 		}catch (Exception e) {
@@ -165,7 +165,7 @@ public class ProductDAO {
 				dto.setThumnail(rs.getString("thumnail"));
 				dto.setImg1(rs.getString("img1"));
 				dto.setImg2(rs.getString("img2"));
-
+				dto.setState(rs.getString("state"));
 				productyList.add(dto);
 			}
 		}catch (Exception e) {
@@ -208,6 +208,7 @@ public class ProductDAO {
 				dto.setThumnail(rs.getString("thumnail"));
 				dto.setImg1(rs.getString("img1"));
 				dto.setImg2(rs.getString("img2"));
+				dto.setState(rs.getString("state"));
 				productyList.add(dto);
 			}
 		}catch (Exception e) {
@@ -440,6 +441,7 @@ public class ProductDAO {
 	            dto.setEnd_date(rs.getString("end_date"));
 	            dto.setDiscription(rs.getString("product_discription"));
 	            dto.setThumnail(rs.getString("thumnail"));
+	            dto.setState(rs.getString("state"));
 	            purchaseList.add(dto);
 	         }
 	      }catch (Exception e) {
@@ -456,19 +458,26 @@ public class ProductDAO {
 	      return purchaseList ;
 	   }
 	//탈퇴부분에서 경매중이면 탈퇴가 안되게하는부분 
-	public int auctioning(String id, String password){
+	public int auctioning(String id){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
-		int result2 = 0;
 		
 		try {
 			conn = DBConnection.getConnection();
-			sql =  "select *  from product where user_id=? or bidder=? and state =='경매중'";
+			sql =  "select count(*) from product where (user_id=? or bidder=?) and state='경매중'";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, password);
-			result2 = pstmt.executeUpdate();
+			pstmt.setString(2, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getInt("count(*)")==0) {
+					return 1; //탈퇴가능
+				}else {
+					return 0;	//탈퇴불가능
+				}
+			}
+			return 1;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -480,7 +489,7 @@ public class ProductDAO {
 			}
 		}
 		
-		return result2;
+		return -1;
 	}
 	
 

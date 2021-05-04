@@ -195,19 +195,24 @@ public class CashDAO {
 	}
 
 	//탈퇴할때 현재 캐시가 남아있으면 탈퇴가 안되는 부분
-	public int cashing(String id, String password){
+	public int cashing(String id){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
-		int result3 = 0;
 		
 		try {
 			conn = DBConnection.getConnection();
-			sql =  "select * from cash where user_id=? and total != 0 order by time desc limit 1";
+			sql =  "select * from cash where user_id=? order by time desc limit 1";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, password);
-			result3 = pstmt.executeUpdate();
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getInt("total") == 0) {
+					return 1; //탈퇴가능함
+				}else {
+					return 0; //잔액남아있음
+				}
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -219,11 +224,40 @@ public class CashDAO {
 			}
 		}
 		
-		return result3;
+		return -1;	// 아예실패
 	}
-	
-	//판매자 판매 금액 인계
-	public int saleMoney(int product_code) {
+	//캐쉬기록에 있는지 없는지 판단할꺼야
+	public int count(String saler){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "SELECT count(*) FROM cash WHERE user_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, saler);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getInt("count(*)")==0){
+					return 0;
+				}else {
+					return 1;
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		
+		return -1;
+	}
+	//캐쉬기록이있을때
+	public int saleMoney1(int product_code) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		LocalDateTime now = LocalDateTime.now();
@@ -243,6 +277,42 @@ public class CashDAO {
 				pstmt.setInt(5, rs.getInt("c.total")+rs.getInt("p.current_price"));
 				pstmt.setInt(6, product_code);
 				pstmt.executeUpdate();
+				return 1;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return -1;
+	}
+	//캐쉬기록이없을경우 insert
+	public int saleMoney2(int product_code) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		LocalDateTime now = LocalDateTime.now();
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "select * from product where product_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, product_code);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String sql1 = "Insert into cash(user_id, time, charge_withdraw, amount, total, product_code) values(?,?,?,?,?,?)";
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setString(1, rs.getString("user_id"));
+				pstmt.setString(2, now.toString());
+				pstmt.setString(3, "판매금");
+				pstmt.setInt(4, rs.getInt("current_price"));
+				pstmt.setInt(5, rs.getInt("current_price"));
+				pstmt.setInt(6, product_code);
+				pstmt.executeUpdate();
+				return 1;
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

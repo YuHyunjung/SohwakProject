@@ -77,7 +77,7 @@
 	<div class="container">
 		<div class="titleArea">
 			<!--h2안에 제목만 바꿔주세요-->
-			<h2>경매참여내역</h2>
+			<h2>구매내역</h2>
 		</div>
 		<div class="contents">
 			<table>
@@ -108,22 +108,24 @@
 							<%
 								DeliveryDAO deliDAO = new DeliveryDAO();
 								DeliveryDTO deliDTO = deliDAO.deliveryHistory(productDTO.get(i).getProduct_code());
-								if(deliDTO.getState() == null){
+								int count = deliDAO.count(productDTO.get(i).getProduct_code());
+								if(count == 0){
 							%>
-								 <a href="../product/order.jsp?product_code=<%=deliDTO.getProduct_code()%>">배송지입력</a>
-							<%}else if(deliDTO.getState().equals("배송지입력완료")){
-								out.println("송장입력대기");
-							}else if(deliDTO.getState().equals("송장입력완료")){
+								 <a href="../product/order.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">배송지입력</a>
+							<%}else{
+								if(deliDTO.getState().equals("배송지입력완료")){
+									out.println("송장입력중");
+								}else if(deliDTO.getState().equals("송장입력완료")){
 							%>
-							<%=deliDTO.getDelivery_company() %><br>
-	                        <%=deliDTO.getTracking_no() %><br>
-                        	<button type="button" onclick="confirm('구매확정하시겠습니까?');location.href='./confirm_purchase.jsp?product_code=<%=deliDTO.getProduct_code()%>'">구매확정</button>
-							<%
-							}else{
-								out.println("구매확정완료");
+								<p><%=deliDTO.getDelivery_company() %><br>
+									<%=deliDTO.getTracking_no() %><br>
+									<a href="./confirm_purchase.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">구매확정</a>
+								</p>
+							<%}else if(deliDTO.getState().equals("구매확정")){
+									out.println("구매완료");
+								}
 							}
 							%>
-							
                        	</td>
 						<td><%=productDTO.get(i).getUser_id() %></td>
 					</tr>

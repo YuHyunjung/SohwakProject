@@ -10,6 +10,14 @@ public class DeliveryDTO {
 	private String delivery_company;
 	private String tracking_date;
 	private String state;
+	private int count;
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getProduct_code() {
 		return product_code;
 	}

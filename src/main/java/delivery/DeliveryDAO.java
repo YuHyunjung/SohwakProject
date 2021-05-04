@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 
+import com.mysql.jdbc.ResultSetMetaData;
+
 import util.DBConnection;
 
 public class DeliveryDAO {
@@ -73,6 +75,36 @@ public class DeliveryDAO {
 		}
 		
 		return null;
+	}
+	
+	public int count(int product_code){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "SELECT count(*) FROM delivery WHERE product_code=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, product_code);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getInt("count(*)")==0){
+					return 0;
+				}else {
+					return 1;
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+				if ( conn != null ){ conn.close(); conn=null;    }
+			}catch(Exception e){
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		
+		return -1;
 	}
 	
 	//송장번호입력
