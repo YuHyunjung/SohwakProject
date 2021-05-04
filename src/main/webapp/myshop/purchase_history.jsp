@@ -1,3 +1,5 @@
+<%@page import="delivery.DeliveryDTO"%>
+<%@page import="delivery.DeliveryDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="product.ProductDTO"%>
@@ -102,9 +104,26 @@
 						<td><%=productDTO.get(i).getCurrent_price() %>원</td>
 						<td><%=productDTO.get(i).getEnd_date()%></td>
 						<!-- 수정해야함 -->
-						<td>CJ대한통운<br>
-                        	1234-5678-0000<br>
-                        	<button type="button" onclick="confirm()">구매확정</button>
+						<td>
+							<%
+								DeliveryDAO deliDAO = new DeliveryDAO();
+								DeliveryDTO deliDTO = deliDAO.deliveryHistory(productDTO.get(i).getProduct_code());
+								if(deliDTO.getState() == null){
+							%>
+								 <a href="../product/order.jsp?product_code=<%=deliDTO.getProduct_code()%>">배송지입력</a>
+							<%}else if(deliDTO.getState().equals("배송지입력완료")){
+								out.println("송장입력대기");
+							}else if(deliDTO.getState().equals("송장입력완료")){
+							%>
+							<%=deliDTO.getDelivery_company() %><br>
+	                        <%=deliDTO.getTracking_no() %><br>
+                        	<button type="button" onclick="confirm('구매확정하시겠습니까?');location.href='./confirm_purchase.jsp?product_code=<%=deliDTO.getProduct_code()%>'">구매확정</button>
+							<%
+							}else{
+								out.println("구매확정완료");
+							}
+							%>
+							
                        	</td>
 						<td><%=productDTO.get(i).getUser_id() %></td>
 					</tr>

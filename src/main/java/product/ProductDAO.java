@@ -51,7 +51,7 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//상품삭제 - 해야해
+	//상품삭제
 	public int deleteProduct(int product_code, String user_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -138,7 +138,7 @@ public class ProductDAO {
 		
 		return productyList;
 	}
-	
+	//상품검색1
 	public List<ProductDTO> findProducts(int category_no,String keyword){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -182,7 +182,7 @@ public class ProductDAO {
 	}
 	
 	
-	//상품검색
+	//상품검색2
 	public List<ProductDTO> findSearchProducts(String keyword){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -249,6 +249,8 @@ public class ProductDAO {
 				dto.setThumnail(rs.getString("thumnail"));
 				dto.setImg1(rs.getString("img1"));
 				dto.setImg2(rs.getString("img2"));
+				dto.setBidder(rs.getString("bidder"));
+				dto.setState(rs.getString("state"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -377,7 +379,7 @@ public class ProductDAO {
 		return productyList;
 	}
 
-	//경매참여내역
+	//최종낙찰내역
 	public List<ProductDTO> purchaseHistory(String user_id){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
