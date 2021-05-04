@@ -71,11 +71,12 @@
 	                <%
 	                	CashDAO cashDAO = new CashDAO();
 	                	CashDTO cashDTO = cashDAO.infoCash(id);
-	                	String total = String.valueOf(cashDTO.getAmount());
+	                	String total = String.valueOf(cashDTO.getTotal());
 	                	if(total == null){
 	                		total = "0";
 	                	}
 	                %>
+	                <%=total %>
 	                <input type="hidden" name="user_id" value="<%=id %>">
 	                <input type="hidden" name="time" value="">
 	                <input type="hidden" name="total" value="<%=total%>">

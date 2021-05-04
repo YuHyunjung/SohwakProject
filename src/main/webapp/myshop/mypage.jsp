@@ -45,7 +45,7 @@
 			<a href="./purchase_history.jsp"><img src="../img/purchase_history.png" alt="구매내역" class="btn"></a>
 			<a href="./sale_history.jsp"><img src="../img/sale_history.png" alt="판매내역" class="btn"></a>
 			<a href="./auction_history.jsp"><img src="../img/aution_history.png" alt="경매참여내역" class="btn"></a>
-			<a href="./cash_recharge.jsp"><img src="../img/cash_history.png" alt="캐쉬관리" class="btn"></a>
+			<a href="./cash_history.jsp"><img src="../img/cash_history.png" alt="캐쉬관리" class="btn"></a>
 		</div>
 	</div>
 	<!--푸터 -->

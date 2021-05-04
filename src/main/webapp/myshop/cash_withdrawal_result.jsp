@@ -55,7 +55,7 @@
 <body>
 	<!--헤더-->
 	<%@ include file="../common/header.jsp" %>
-	
+	<!-- 출금 -->
 	<%
 		request.setCharacterEncoding("UTF-8");
 	
@@ -63,12 +63,12 @@
 		String time = request.getParameter("time");
 		String charge_withdraw = request.getParameter("charge_withdraw");
 		int amount = Integer.parseInt(request.getParameter("amount"));
-		int total = Integer.parseInt(request.getParameter("total"))-amount;
+		int total = Integer.parseInt(request.getParameter("total"));
 
 		CashDAO cashDAO = new CashDAO();
 		
 			//userDAO 객체 생성
-		int result = cashDAO.chargeCash(user_id,time,charge_withdraw,amount,total); //1이면 성공 -1이면 실패 
+		int result = cashDAO.chargeCash(user_id,time,charge_withdraw,-amount,total); //1이면 성공 -1이면 실패 
 		if(result == 1) {
 	%>
     <div class="container">
@@ -80,11 +80,11 @@
              
             </div>
             <div class="titleArea_question">
-                <p><%=user_id %>회원님, <%=amount %>원 출금이 완료되었습니다.</p>
-                <p>총 금액은 <%=total-amount %>입니다.</p>
+                <p><%=user_id %>회원님, <%=amount%>원 출금이 완료되었습니다.</p>
+                <p>총 금액은 <%=total-amount%>입니다.</p>
             </div>
             <div class="option1">
-                <a href="cash_withdrawal.jsp"><button type="button" class="submit">돌아가기</button></a>
+                <a href="cash_history.jsp"><button type="button" class="submit">돌아가기</button></a>
             </div>
         </fieldset>
     </div>

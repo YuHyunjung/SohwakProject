@@ -47,19 +47,20 @@
 	          <h2>캐시출금</h2>
 	        <div class="withdrawal_content">
 	
-	        	<form action="cash_withdrawal_result.jsp" method="post" >
-	                <p>예금주 <%=userDTO.getName() %></p>
-	                <p>계좌번호 <%=userDTO.getAccountNum() %></p>
-	                <p>출금 금액 <input type="number" name="amount" value=""></p>
-	                
 	                <%
 	                	CashDAO cashDAO = new CashDAO();
 	                	CashDTO cashDTO = cashDAO.infoCash(id);
-	                	String total = String.valueOf(cashDTO.getAmount());
+	                	String total = String.valueOf(cashDTO.getTotal());
 	                	if(total == null){
 	                		total = "0";
 	                	}
 	                %>
+	        	<form action="cash_withdrawal_result.jsp" method="post" >
+	                <p>예금주 : <%=userDTO.getName() %></p>
+	                <p>계좌번호 : <%=userDTO.getAccountNum() %></p>
+	                <p>출금가능 잔액 : <%=total %></p>
+	                <p>출금 금액 <input type="number" name="amount" value=""></p>
+	                
 	                <input type="hidden" name="user_id" value="<%=id %>">
 	                <input type="hidden" name="time" value="">
 	                <input type="hidden" name="total" value="<%=total%>">

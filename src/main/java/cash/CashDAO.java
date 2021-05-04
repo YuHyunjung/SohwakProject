@@ -30,7 +30,7 @@ public class CashDAO {
 			pstmt.setString(2, time);
 			pstmt.setString(3, charge_withdraw);
 			pstmt.setInt(4, amount);
-			pstmt.setInt(5, total);
+			pstmt.setInt(5, total+amount);
 			pstmt.executeUpdate();
 			return 	1;
 		}catch (Exception e) {
@@ -100,7 +100,7 @@ public class CashDAO {
 				cashDTO.setAmount(rs.getInt("amount"));
 				cashDTO.setTotal(rs.getInt("total"));
 				cashDTO.setProcess_state(rs.getString("process_state"));
-				
+				cashDTO.setProduct_code(rs.getInt("product_code"));
 				v.add(cashDTO); 
 				}
 				conn.close();
@@ -138,7 +138,7 @@ public class CashDAO {
 				pstmt.setString(1,old_user);
 				pstmt.setString(2, refundDate);
 				pstmt.setString(3, "보증금 환불");
-				pstmt.setInt(4, old_price);
+				pstmt.setInt(4, -old_price);
 				pstmt.setInt(5, rs.getInt("total")+old_price);
 				pstmt.setInt(6, product_code);
 				pstmt.executeUpdate();

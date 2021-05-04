@@ -8,7 +8,20 @@ public class CashDTO {
 	private int amount;
 	private int total;
 	private String process_state;
+	private int product_code;
 	
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public int getProduct_code() {
+		return product_code;
+	}
+	public void setProduct_code(int product_code) {
+		this.product_code = product_code;
+	}
 	public int getCash_no() {
 		return cash_no;
 	}
