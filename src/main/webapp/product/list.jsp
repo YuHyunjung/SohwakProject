@@ -198,17 +198,6 @@ function fn_submit(){
          </li>
          <%} %>
       </ul>
-      <div class="paging">
-         <a href="#none" class="prev"><img src="../img/prev_btn.png" alt="이전페이지"></a>
-         <ol>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-         </ol>
-         <a href="#none" class="next"><img src="../img/next_btn.png" alt="다음페이지"></a>
-      </div>
       </form>
    </div>
    

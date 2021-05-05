@@ -13,7 +13,7 @@ import util.DBConnection;
 
 public class WishDAO {
 	
-	//회占쏙옙占쏙옙占쏙옙
+	//장바구니담기
 	public int wish(int product_code,String user_id) {
 		Connection conn = null;
 		String sql = "INSERT INTO wish(product_code, user_id) VALUES(?, ?)";
@@ -38,6 +38,37 @@ public class WishDAO {
 		return -1;
 	}
 	
+	//장바구니에 이미 동일상품있는지 여부확인
+	public int check(int product_code,String user_id) {
+		Connection conn = null;
+		String sql = "select count(*) from wish where user_id=? and product_code=? ";
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setInt(2, product_code);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getInt("count(*)")==0) {
+					return 	1;	//없음
+				}else {
+					return 0;	//이미존재
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+                if ( conn != null ){ conn.close(); conn=null;    }
+            }catch(Exception e){
+                throw new RuntimeException(e.getMessage());
+            }
+		}
+		return -1;
+	}
+	//전체삭제
 	public int deleteWish(String user_id) {
 		Connection conn = null;
 		String sql = "DELETE FROM wish WHERE user_id = ?";
@@ -60,7 +91,7 @@ public class WishDAO {
 		}
 		return -1;
 	}
-	
+	//뿌려주기
 	public List<WishDTO> wishList(String user_id){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
