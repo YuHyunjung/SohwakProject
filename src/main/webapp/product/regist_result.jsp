@@ -18,6 +18,7 @@
 		request.setCharacterEncoding("UTF-8");
 	
 		String filename = "";
+		
 		String realFolder = "C:\\sohwak\\demo\\src\\main\\webapp\\file";
 		int maxsize = 100 * 1024 * 1024; // 최대 업로드 크기(100mb)
 		String encType = "UTF-8";
