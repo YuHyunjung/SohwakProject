@@ -48,7 +48,7 @@ public class BoardDAO {
 		
 		try {
 			conn = DBConnection.getConnection();
-			String sql = "SELECT board_code, board_date, title FROM board";
+			String sql = "SELECT board_code, board_date, title FROM board order by board_date desc";
 			pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -158,7 +158,7 @@ public class BoardDAO {
 		ResultSet rs = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "select * from board limit ?,?";
+		String sql = "select * from board order by board_code desc limit ?,? ";
 		Vector<BoardDTO> vdo = new Vector<BoardDTO>();
 		
 		try {
