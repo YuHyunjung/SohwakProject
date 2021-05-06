@@ -3,12 +3,9 @@ package wish;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import product.ProductDTO;
 import util.DBConnection;
 
 public class WishDAO {

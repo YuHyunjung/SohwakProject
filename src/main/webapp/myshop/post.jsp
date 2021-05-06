@@ -1,11 +1,11 @@
 <%@page import="java.io.PrintWriter"%>
 <%@page import="delivery.DeliveryDAO"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -20,13 +20,13 @@
 	if(result==1){
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("alert('¼ÛÀåÀÌ ÀÔ·ÂµÇ¾ú½À´Ï´Ù.')"); 
+		script.println("alert('ì†¡ì¥ì´ ì…ë ¥ë˜ì—ˆìŠµë‹ˆë‹¤.')"); 
 		script.println("location.href = './sale_history.jsp'");
 		script.println("</script>");
 	}else{
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("alert('¼ÛÀåÀÔ·ÂÀÌ ½ÇÆĞÇÏ¿´½À´Ï´Ù.')"); 
+		script.println("alert('ì†¡ì¥ì…ë ¥ì´ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.')"); 
 		script.println("location.href = './sale_history.jsp'");
 		script.println("</script>");
 	}

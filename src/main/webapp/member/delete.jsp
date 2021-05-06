@@ -42,10 +42,7 @@
 			background-color: #999999;
 		}
 	</style>
-<!-- %
-	request.setCharacterEncoding("UTF-8"); 
-	String id = (String) session.getAttribute("idKey");  //세션에서 idkey를 가져온다
-%> -->
+
 <script>
  function deleteID(){
 	 if($("#password").val()==" "){
@@ -56,9 +53,7 @@
  }
 </script>
 
-<!-- 해당상품이 경매중이면, select *  from product where user_id=? or bidder=? and state =='경매중' -- ProductDAO
-	그 유저가 캐쉬가 남아있거나, select * from cash where user_id=? and total != 0 order by time desc limit 1; -- CashDAO
- -->
+
 </head>
 <body>
 	<!--헤더-->

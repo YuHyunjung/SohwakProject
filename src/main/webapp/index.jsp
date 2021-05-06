@@ -70,8 +70,8 @@
 	<!--메인컨텐츠-->
 	<div class="container">
 		<div class="serch_box">
-		<h1 style="text-align: center; font-size: 18pt;">찾으시는 물건이 있으신가요?</h1>
-			<form action="product/list.jsp" method="post">
+		<h1 style="text-align:center; font-size:18px;">찾으시는 물건이 있으신가요?</h1>
+			<form action="product/list.jsp" method="get">
 				<input type="search" id="keyword" name="keyword">
 				<input type="submit" id="submit_btn">
 			</form>
