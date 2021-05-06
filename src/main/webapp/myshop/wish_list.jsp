@@ -66,7 +66,7 @@
 			margin-top: 10px;
         }
         .contents img{
-		max-width: 100%;
+		    width: 195px;
 	}
 	</style>
 <script>
