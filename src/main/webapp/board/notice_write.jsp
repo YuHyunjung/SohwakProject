@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="board.BoardDAO" %>
+<%@ page import="board.BoardDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,6 +62,7 @@
 		<div class="titleArea">
 			<h2>공지사항작성</h2>
 		</div>
+	
 		<form action="board_AddAction.jsp" method="POST">
             <table>
             	<tr>

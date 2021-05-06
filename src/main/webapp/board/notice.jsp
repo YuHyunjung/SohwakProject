@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="../css/common.css">
 	<link rel="stylesheet" href="../css/notice_main.css">
 </head>
-<script></script> <!-- 일단 냅둠 -->
+
 <body>
 	<!--헤더-->
 	<%@ include file="../common/header.jsp" %>

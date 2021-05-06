@@ -57,6 +57,14 @@
 	                %>
 	        	<form action="cash_withdrawal_result.jsp" method="post" >
 	                <p>예금주 : <%=userDTO.getName() %></p>
+	                <p>은행 : <% if((userDTO.getBankCode())==1){
+	                    				out.println("우체국");
+	                    			}else if((userDTO.getBankCode())==2){
+	                    				out.println("국민");
+	                    			}else{
+	                    				out.println("농협");
+	                    			}
+	                    		%>
 	                <p>계좌번호 : <%=userDTO.getAccountNum() %></p>
 	                <p>출금가능 잔액 : <%=total %></p>
 	                <p>출금 금액 <input type="number" name="amount" value=""></p>

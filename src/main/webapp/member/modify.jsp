@@ -154,7 +154,7 @@
             </div>
 
             <div class="option">
-                <button type="button" onclick="location.href='../index.html'" class="cancel">취소</button>
+                <button type="button" onclick="location.href='../index.jsp'" class="cancel">취소</button>
                 <button type="submit" class="submit" onclick="checkform()">회원 정보 수정</button>
                 <button type="button" class="delete" onclick="location.href='./delete.jsp'">회원 탈퇴</button>
             </div>

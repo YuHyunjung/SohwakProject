@@ -10,13 +10,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>상품리스트</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon"/>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="../javascript/countdown.js"></script>
-<link rel="stylesheet" href="../css/common.css">
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>상품리스트</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <link rel="stylesheet" href="../css/common.css">
 <style>
    .titleArea{
       margin-top: 30px;
@@ -33,9 +32,8 @@
       width: 500px;
       height: 40px;
       border-radius: 10px;
-      border: none;
-      background-color: #999999;
-      color: white;
+     border : 2.5px solid #999999;        
+      color: #999999;
       font-size: 16pt;
       padding-left:15px;
    }
@@ -80,6 +78,53 @@
       white-space:nowrap;
    }
 </style>
+<script>
+   $(document).ready(function(){
+     setTimerrr();
+   })
+   
+   function setTimerrr() {
+      var timers = $(".timer")
+      timers.each(function(index,timer) {
+         tid=setInterval(msg_time, 1000, timer);
+      })
+   }
+   
+   function msg_time(timer){
+      var nowDate = new Date().getTime();
+      var endDate = new Date($(timer).attr("attr-enddate")).getTime();
+      var RemainDate = endDate - nowDate;
+      
+     var days = Math.floor(RemainDate / (1000 * 60 * 60 * 24));
+     var hours = Math.floor((RemainDate % (1000 * 60 * 60 * 24)) / (1000*60*60));
+     var miniutes = Math.floor((RemainDate % (1000 * 60 * 60)) / (1000*60));
+     var seconds = Math.floor((RemainDate % (1000 * 60)) / 1000);
+   
+     m = days+"일 "+hours + "시 "+miniutes+"분 " + seconds+"초";
+     
+     $(timer).html(m);   // div 영역에 보여줌 
+     
+     if (RemainDate < 0) {      
+       //clearInterval(tid);   // 타이머 해제
+       $(timer).text("경매 종료");
+       $(timer).css("color","red");
+     }else{
+       RemainDate = RemainDate - 1000; // 남은시간 -1초
+     }
+   }
+function fn_submit(){
+   var keyword = $("#keyword").val();
+   if(keyword == ''){
+      alert('검색어를 입력해주세요.');
+      return;
+   }
+   var categoryNo = "<%=request.getParameter("categoryNo")%>";
+   if(categoryNo != 'null'){
+      $("#categoryNo").val(categoryNo);
+   }
+   $("#search_box").submit();
+}
+</script>
 </head>
 <body>
    <!--헤더-->
@@ -88,9 +133,10 @@
    <!--메인컨텐츠-->
    <div class="container">
       <form action="list.jsp" method="get" id="search_box" onsubmit="fn_submit();">
+      <div style="text-align:center;">
          <input type="search" id="keyword" name="keyword">
-         <input type="submit" id="submit_btn">
-         <input type="hidden" name="categoryNo" id="categoryNo" value="<%=request.getParameter("categoryNo")%>"/>
+         <input type="submit" id="submit_btn"></div>
+         <input type="hidden" name="categoryNo" id="categoryNo" />
 
       
       <div class="titleArea">
@@ -103,12 +149,12 @@
                
                String keyword = request.getParameter("keyword");
                ProductDAO productDAO = new ProductDAO();
-               List<ProductDTO> products = new ArrayList<ProductDTO>();
-               if(str_categoryNo != null){
-                  int category_no = Integer.parseInt(str_categoryNo);
-                  if(keyword != null){
-                     products = productDAO.findProducts(category_no,keyword);
-                  }else{
+            List<ProductDTO> products = new ArrayList<ProductDTO>();
+            if(str_categoryNo != null && !str_categoryNo.equals("")){
+               int category_no = Integer.parseInt(str_categoryNo);
+               if(keyword != null){
+                  products = productDAO.findProducts(category_no,keyword);
+               }else{
                      products = productDAO.findProducts(category_no);
                   }
                }else{

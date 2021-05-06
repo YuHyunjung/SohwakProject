@@ -60,8 +60,9 @@
 	        <div class="recharge_content">
 	
 	        	<form action="cash_recharge_result.jsp" method="post" >
-	                <p>예금주 <%=userDTO.getName() %></p>
-	                <p>계좌번호 <%=userDTO.getAccountNum() %></p>
+	                <p>예금주 : 소확마켓</p>
+	                <p>은행 : 국민은행</p>
+	                <p>계좌번호 : 123-45-6789</p>
 	
 	                <input class="chk_amount" type="radio" name="amount" value=50000>5만원
 	                <input class="chk_amount" type="radio" name="amount" value=100000>10만원
