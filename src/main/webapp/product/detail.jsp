@@ -14,7 +14,7 @@
 	 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<link rel="stylesheet" href="../css/common.css">
 	<style>
-		.titleArea{
+
 			margin-top: 30px;
 		}
 		.titleArea>h2{
