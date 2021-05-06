@@ -33,9 +33,8 @@
       width: 500px;
       height: 40px;
       border-radius: 10px;
-      border: none;
-      background-color: #999999;
-      color: white;
+	  border : 2.5px solid #999999;     	
+      color: #999999;
       font-size: 16pt;
       padding-left:15px;
    }
@@ -88,8 +87,9 @@
    <!--메인컨텐츠-->
    <div class="container">
       <form action="list.jsp" method="get" id="search_box" onsubmit="fn_submit();">
+      	<div style="text-align: center;">
          <input type="search" id="keyword" name="keyword">
-         <input type="submit" id="submit_btn">
+         <input type="submit" id="submit_btn"></div>
          <input type="hidden" name="categoryNo" id="categoryNo" value="<%=request.getParameter("categoryNo")%>"/>
 
       
@@ -139,7 +139,7 @@
                         </tr>
                         <tr>
                            <th>최저가</th>
-                           <td><%=products.get(i).getMin_price()%></td>
+                           <td><div class="min_price" attr-price="<%=products.get(i).getMin_price()%>"></div></td>
                         </tr>
                         <tr>
                            <th>최고가</th>

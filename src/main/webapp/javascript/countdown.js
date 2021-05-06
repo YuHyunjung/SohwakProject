@@ -1,4 +1,6 @@
-
+/**
+ * 경매 시간 카운트다운
+ */
    $(document).ready(function(){
      setTimerrr();
    })
@@ -25,7 +27,7 @@
      $(timer).html(m);   // div 영역에 보여줌 
      
      if (RemainDate < 0) {      
-       //clearInterval(tid);   // 타이머 해제
+       //clearInterval(tid);   // 타이머 해제	
        $(timer).text("경매 종료");
        $(timer).css("color","red");
      }else{

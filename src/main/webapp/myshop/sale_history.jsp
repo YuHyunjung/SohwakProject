@@ -17,6 +17,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon"/>
 	 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	 <script type="text/javascript" src="../javascript/countdown.js"></script>
 	<link rel="stylesheet" href="../css/common.css">
 <style>
 	.titleArea{
@@ -71,41 +72,6 @@
 			border-left: 2px solid #999999;
 		}
 </style>
-<script>
-$(document).ready(function(){
-	  setTimerrr();
-	})
-	
-	function setTimerrr() {
-		var timers = $(".timer")
-		timers.each(function(index,timer) {
-			tid=setInterval(msg_time, 1000, timer);
-		})
-	}
-	
-	function msg_time(timer){
-		var nowDate = new Date().getTime();
-		var endDate = new Date($(timer).attr("attr-enddate")).getTime();
-		var RemainDate = endDate - nowDate;
-		
-	  var days = Math.floor(RemainDate / (1000 * 60 * 60 * 24));
-	  var hours = Math.floor((RemainDate % (1000 * 60 * 60 * 24)) / (1000*60*60));
-	  var miniutes = Math.floor((RemainDate % (1000 * 60 * 60)) / (1000*60));
-	  var seconds = Math.floor((RemainDate % (1000 * 60)) / 1000);
-	
-	  m = days+"일 "+hours + "시 "+miniutes+"분 " + seconds+"초";
-	  
-	  $(timer).html(m);   // div 영역에 보여줌 
-	  
-	  if (RemainDate < 0) {      
-		 //clearInterval(tid);   // 타이머 해제
-		 $(timer).text("경매 종료");
-		 $(timer).css("color","red");
-	  }else{
-	    RemainDate = RemainDate - 1000; // 남은시간 -1초
-	  }
-	}
-</script>
 </head>
 <body>
 	<!--헤더-->

@@ -148,6 +148,20 @@
 		
 	%>
 	<script>
+		 $(document).ready(function(){
+			var min = '<%=productDTO.getMin_price()%>';
+			min = min.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$("#min_price").text(min);
+			
+			var max = '<%=productDTO.getMax_price()%>';
+			max = max.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$("#max_price").text(max);
+			
+			var current = '<%=productDTO.getCurrent_price()%>';
+			current = current.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$("#current_price").text(current);
+		 })
+		
 		function auction(){
 			var price = Number($("#price").val());
 			if(price == ""){
@@ -265,17 +279,18 @@
 						</tr>
 						<tr>
 							<th>최저가</th>
-							<td><%=productDTO.getMin_price() %></td>
+							<td><div id="min_price"></div></td>
 						</tr>
 						<tr>
 							<th>최고가</th>
-							<td><%=productDTO.getMax_price() %></td>
+							<td><div id="max_price"></div></td>
 						</tr>
 						<tr>
 							<th>현재입찰가</th>
-							<td><%=productDTO.getCurrent_price() %></td>
+							<td><div id="current_price"></div></td>
 						
 						</tr>
+
 					</table>
 					<%if(id == null){ %>
 						<p>로그인 후 경매 참여가능합니다.</p>
