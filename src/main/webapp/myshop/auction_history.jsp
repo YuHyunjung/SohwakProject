@@ -101,7 +101,7 @@
 					<tr>
 						<td><img src="../file/<%=productDTO.get(i).getThumnail() %>" alt="상품이미지" class="product_img"></td>
 						<td><%=productDTO.get(i).getMin_price() %>원/<%=productDTO.get(i).getMax_price() %>원</td>
-						<td><div class="timer" attr-enddate="<%=productDTO.get(i).getEnd_date()%>"></div></td>
+						<td><div class="timer" attr-enddate="<%=productDTO.get(i).getEnd_date()%>" style="display:none;"><%=productDTO.get(i).getEnd_date()%></div></td>
 						<td><%=productDTO.get(i).getCurrent_price() %>원<br><button type="button" onclick="location.href='../product/detail.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>'">링크로이동</button>
 						</td>
 						<td><%=productDTO.get(i).getUser_id() %></td>

@@ -5,13 +5,10 @@
 %>
 <%@ page import="product.CategoryDTO"%>
 <%@ page import="product.CategoryDAO"%>
-
 <%@ page import="product.ProductDTO"%>
 <%@ page import="product.ProductDAO"%>
 <jsp:useBean id="dao" class="product.ProductDAO" /> 
-
 <%@ page import="java.util.List"%>
-
 
 <!DOCTYPE html>
 <html>

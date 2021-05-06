@@ -2,7 +2,13 @@
  * 경매 시간 카운트다운
  */
    $(document).ready(function(){
+   	var agent = navigator.userAgent.toLowerCase();
+
+	if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+   		$(".timer").css("display","block");
+   	}else{
      setTimerrr();
+     }
    })
    
    function setTimerrr() {
@@ -23,9 +29,8 @@
      var seconds = Math.floor((RemainDate % (1000 * 60)) / 1000);
    
      m = days+"일 "+hours + "시 "+miniutes+"분 " + seconds+"초";
-     
+     $(timer).css("display","block");
      $(timer).html(m);   // div 영역에 보여줌 
-     
      if (RemainDate < 0) {      
        //clearInterval(tid);   // 타이머 해제	
        $(timer).text("경매 종료");
