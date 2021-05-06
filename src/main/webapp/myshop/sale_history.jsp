@@ -110,7 +110,7 @@
 						<td><img src="../file/<%=productDTO.get(i).getThumnail() %>" alt="상품이미지" class="product_img"></td>
 						<td><%=productDTO.get(i).getCurrent_price() %><br>
 							(<%=productDTO.get(i).getMin_price() %>원/<%=productDTO.get(i).getMax_price() %>)원</td>
-						<td><div class="timer" attr-enddate="<%=productDTO.get(i).getEnd_date()%>"></div></td>
+						<td><div class="timer" attr-enddate="<%=productDTO.get(i).getEnd_date()%>" style="display:none;"><%=productDTO.get(i).getEnd_date()%></div></td>
 						<td>
 							<%
 							if(productDTO.get(i).getState().equals("경매전")){

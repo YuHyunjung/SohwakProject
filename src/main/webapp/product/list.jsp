@@ -133,7 +133,7 @@
                            <td style="font-size:9pt;"><%if(products.get(i).getState().equals("경매종료")){ %>
                               <p style="color:red;">경매종료</p>
                            <%} else{%>
-                           <div class="timer" attr-enddate="<%=products.get(i).getEnd_date()%>"></div>
+                           <div class="timer" attr-enddate="<%=products.get(i).getEnd_date()%>" style="display:none;"><%=products.get(i).getEnd_date()%></div>
                            <%} %>
                            </td>
                         </tr>
