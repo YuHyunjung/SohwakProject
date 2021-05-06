@@ -57,8 +57,6 @@
 	<%@ include file="../common/header.jsp" %>
 	<!-- 충전 -->
 	<%
-		request.setCharacterEncoding("UTF-8");
-	
 		String user_id = request.getParameter("user_id");
 		String time = request.getParameter("time");
 		String charge_withdraw = request.getParameter("charge_withdraw");
