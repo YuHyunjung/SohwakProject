@@ -32,7 +32,7 @@
 		if(title == ""){
 			alert("글 제목을 작성해주세요");
 			title.focus();
-			return
+			return;
 		}
 		if(discription == ""){
 			alert("글 내용을 작성해주세요");
