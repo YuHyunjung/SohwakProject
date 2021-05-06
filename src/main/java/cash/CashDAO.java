@@ -82,7 +82,7 @@ public class CashDAO {
 	//캐쉬기록
 	public Vector<CashDTO> chargeCashList(String user_id) {  
 		Vector<CashDTO> v = new Vector<CashDTO>(); 
-		String SQL = "SELECT * FROM cash WHERE user_id=? order by time desc"; 
+		String SQL = "SELECT * FROM cash WHERE user_id=? order by cash_no desc"; 
 		Connection conn = null;
 		conn = DBConnection.getConnection();
 		PreparedStatement pstmt = null;
@@ -138,7 +138,7 @@ public class CashDAO {
 				pstmt.setString(1,old_user);
 				pstmt.setString(2, refundDate);
 				pstmt.setString(3, "보증금 환불");
-				pstmt.setInt(4, -old_price);
+				pstmt.setInt(4, +old_price);
 				pstmt.setInt(5, rs.getInt("total")+old_price);
 				pstmt.setInt(6, product_code);
 				pstmt.executeUpdate();
@@ -176,7 +176,7 @@ public class CashDAO {
 				pstmt.setString(1,user_id);
 				pstmt.setString(2, auctionDate);
 				pstmt.setString(3, "입찰 보증금");
-				pstmt.setInt(4, new_price);
+				pstmt.setInt(4, -new_price);
 				pstmt.setInt(5, rs.getInt("total")-new_price);
 				pstmt.setInt(6, product_code);
 				pstmt.executeUpdate();

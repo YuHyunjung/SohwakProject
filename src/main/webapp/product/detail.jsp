@@ -14,7 +14,7 @@
 	 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<link rel="stylesheet" href="../css/common.css">
 	<style>
-		.titleArea{
+
 			margin-top: 30px;
 		}
 		.titleArea>h2{
@@ -175,10 +175,6 @@
 	</script>
 	<!--메인컨텐츠-->
 	<div class="container">
-		<form action="" method="post" id="search_box">
-			<input type="search" id="keyword" name="keyword">
-			<input type="submit" value="제출" id="submit_btn">
-		</form>
 		<div class="titleArea">
 			<h2>상품상세</h2>
 		</div>
@@ -291,7 +287,7 @@
 						<input type="hidden" name="product_code" value="<%=productDTO.getProduct_code() %>">
 						<input type="number" placeholder="희망입찰가" name="price" id="price" step="100">
 						<button type="submit" class="submit" onclick="auction()" id="submit">입찰하기</button>
-						<button type="button" class="wish_list" onclick="location.href='../myshop/wish_list.jsp'" id="wish_list">장바구니</button>
+						<button type="button" class="wish_list" onclick="location.href='./wish_list_result.jsp?product_code=<%=product_code %>'" id="wish_list">장바구니</button>
 					</form>
 					<%} }%>
 				</div>

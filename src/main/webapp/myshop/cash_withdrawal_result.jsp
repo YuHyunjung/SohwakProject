@@ -64,7 +64,12 @@
 		String charge_withdraw = request.getParameter("charge_withdraw");
 		int amount = Integer.parseInt(request.getParameter("amount"));
 		int total = Integer.parseInt(request.getParameter("total"));
-
+		if(amount>total){
+			out.println("<script>"
+					  + "alert('출금금액이 보유금액을 초과하였습니다.');"
+					  + "history.go(-1);"
+					  + "</script>");
+		}else{
 		CashDAO cashDAO = new CashDAO();
 		
 			//userDAO 객체 생성
@@ -91,6 +96,6 @@
     
     <!--푸터-->
 	<%@ include file="../common/footer.jsp" %>
-	<%} %>
+	<%} }%>
 </body>
 </html>
