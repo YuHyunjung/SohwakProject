@@ -105,7 +105,7 @@
 							<%=v.get(i).getCharge_withdraw()%>
 						</td>  <!-- 충전, 출금 -->
 						<td><%
-							if(!v.get(i).getCharge_withdraw().equals("입찰 보증금")){
+							if(v.get(i).getCharge_withdraw().equals("보증금 환불") || v.get(i).getCharge_withdraw().equals("충전")){
 						%>+<%}%><%=v.get(i).getAmount()%></td>  <!-- 금액 -->
 						<td><%=v.get(i).getTotal()%></td>  <!-- 총액 -->
 					</tr>

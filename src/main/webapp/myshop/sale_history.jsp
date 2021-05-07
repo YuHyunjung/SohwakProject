@@ -71,6 +71,11 @@
 		td:last-child{
 			border-left: 2px solid #999999;
 		}
+		button{
+			
+			margin: 0 auto;
+			
+		}
 </style>
 </head>
 <body>
@@ -116,14 +121,14 @@
 							if(productDTO.get(i).getState().equals("경매전")){
 							%>
 							입찰전<br>
-							<a href="../product/regist_modify.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">상품수정</a>
-							<a href="../product/product_delite.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">상품삭제</a>
+							<a href="../product/regist_modify.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>"><button type="submit" class="submit">상품수정</button></a>
+							<a href="../product/product_delite.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>"><button type="submit" class="submit">상품삭제</button></a>
 							<%
 							}else if(productDTO.get(i).getState().equals("경매중")){
 							%>
 							경매진행중<br>
 							<a href="../product/detail.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">링크로이동</a>
-							<a href="../product/regist_modify.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">상품수정</a>
+							<a href="../product/regist_modify.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>"><button type="submit" class="submit">상품수정</button></a>
 							<%}else if(productDTO.get(i).getState().equals("경매종료")){ 
 								if(count == 0){
 									out.println("경매종료(배송지입력전)");
