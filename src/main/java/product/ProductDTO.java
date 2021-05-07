@@ -1,7 +1,5 @@
 package product;
 
-import user.UserDTO;
-
 public class ProductDTO {
 
 	private Integer product_code;

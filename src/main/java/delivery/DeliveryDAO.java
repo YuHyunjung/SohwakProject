@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 
-import com.mysql.jdbc.ResultSetMetaData;
-
 import util.DBConnection;
 
 public class DeliveryDAO {

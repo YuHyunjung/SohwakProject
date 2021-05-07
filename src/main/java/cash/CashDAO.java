@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Vector;
 
-import user.UserDTO;
 import util.DBConnection;
 
 public class CashDAO {

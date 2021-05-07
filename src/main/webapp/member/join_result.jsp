@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="user.UserDAO" %>
 <%@ page import="user.UserDTO" %>
-<%@ page import="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,8 +75,6 @@
 			out.println("location.href='./join.jsp'");
 			out.println("</script>");
 		}else{
-		
-		
 			//userDAO 객체 생성
 		int result = userDAO.join(userID, userPassword,hint,answer,name,phone,email,bankCode,account,joinDate);		//1이면 성공 -1이면 실패 
 	%>

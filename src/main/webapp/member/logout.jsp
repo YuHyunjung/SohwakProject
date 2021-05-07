@@ -6,6 +6,6 @@
 	//현재 세션을 서버에서 제거 
 	session.invalidate(); 
 	response.sendRedirect("../index.jsp"); 
-	//로그아웃 후 로그인 폼으로 돌아가기 
+	//로그아웃 후 메인페이지로 돌아가기 
 %>
 
