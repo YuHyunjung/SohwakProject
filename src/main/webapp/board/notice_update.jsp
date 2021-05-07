@@ -22,6 +22,9 @@
 		    border: none;
 		    background-color: #668efd;
 	    }
+	    .cancel{
+	    	background-color: #999999;
+	    }
 	</style>
 	
 </head>
@@ -85,7 +88,7 @@
 			</table>
            <div class="btn_area">
 				<input type="submit" class="submit" onclick="insert()" value="수정하기" >
-				<input type="button" class="cancel" value="취소하기" Onclick="location.href='./notice.jsp'">
+				<input type="button" class="cancel submit" value="취소하기" Onclick="location.href='./notice.jsp'">
             </div>
 		</form>
 	</div>
