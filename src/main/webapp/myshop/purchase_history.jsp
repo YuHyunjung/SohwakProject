@@ -103,7 +103,6 @@
 						<td><img src="../file/<%=productDTO.get(i).getThumnail() %>" alt="상품이미지" class="product_img"></td>
 						<td><%=productDTO.get(i).getCurrent_price() %>원</td>
 						<td><%=productDTO.get(i).getEnd_date()%></td>
-						<!-- 수정해야함 -->
 						<td>
 							<%
 								DeliveryDAO deliDAO = new DeliveryDAO();

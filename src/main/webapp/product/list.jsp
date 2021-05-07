@@ -1,11 +1,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page import="product.ProductDTO"%>
 <%@ page import="product.ProductDAO"%>
-<jsp:useBean id="dao" class="product.ProductDAO" />
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="product.CategoryDTO"%>
 <%@ page import="product.CategoryDAO"%>
-
 <%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>

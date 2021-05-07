@@ -1,91 +1,82 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>회원가입</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon"/>
-	<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
-	<link rel="stylesheet" href="../css/common.css">
-	<link rel="stylesheet" href="../css/member.css">
-	<script>
-		function checkID(){
-		    //아이디 정규식
-			
-		      
-			//중복확인 결과
-			url = "confirmId.jsp?userId="+document.joinform.userID.value;
-			window.open(url,"confirm","width=300,height=150");
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>회원가입</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon"/>
+<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+<link rel="stylesheet" href="../css/common.css">
+<link rel="stylesheet" href="../css/member.css">
+<script>
+   function checkform() {
+   	  //아이디 정규식
+   	var userIdCheck = RegExp(/^[a-z0-9]{5,20}$/);
+      //비밀번호 정규식 
+    var passwdCheck = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/);
+      //이름 정규식
+    var nameCheck = RegExp(/^[가-힣]{2,6}$/);
+      //이메일 정규식
+    var emailCheck = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+      //핸드폰 번호 정규식
+    var phonNumberCheck = RegExp(/^01[0179][0-9]{7,8}$/);
+      //계좌번호 정규식
+    var accountCheck = RegExp(/^[0-9_\-]{5,30}$/);
+ 		 //id가 공란일때
+   if($("#main_id").val()==""){
+    	  alert("아이디를 입력해 주세요.");
+    	  $("#main_id").focus();
+    	  return;
 		}
-	   function checkform() {
-		   	  //아이디 정규식
-		   	var userIdCheck = RegExp(/^[a-z0-9]{5,20}$/);
-		      //비밀번호 정규식 
-		    var passwdCheck = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/);
-		      //이름 정규식
-		    var nameCheck = RegExp(/^[가-힣]{2,6}$/);
-		      //이메일 정규식
-		    var emailCheck = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-		      //핸드폰 번호 정규식
-		    var phonNumberCheck = RegExp(/^01[0179][0-9]{7,8}$/);
-		      //계좌번호 정규식
-		    var accountCheck = RegExp(/^[0-9_\-]{5,30}$/);
-		 		 //id가 공란일때
-			   if($("#main_id").val()==""){
-			    	  alert("아이디를 입력해 주세요.");
-			    	  $("#main_id").focus();
-			    	  return;
-					}
-			      //아이디 유효성 검사
-			   if(!userIdCheck.test($("#main_id").val())){
-			    	  alert("아이디에 영문 소문자와 숫자를 포함하여 5자에서 20자 사이로 입력해 주세요.");
-			    	  $("#main_id").focus();
-			    	  return;
-			      }
-		      //비밀번호, 비밀번호 확인 동일값인지 확인
-		      if($("#password").val() != $("#passwordConfirm").val()){
-		    	  alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요");
-		    	  return;
-		      }
-		      //비밀번호 유효성
-		      if(!passwdCheck.test($("#password").val())){
-		    	  alert("비밀번호를 영문 대문자와 소문자, 숫자, 특수문자를 하나 이상 포함하여 8~16로 입력해 주세요.");
-		    	  $("#password").focus();
-		    	  return;
-		      }
-		      
-		      //이메일 유효성
-		      if(!emailCheck.test($("#main_email").val())){
-		    	  alert("이메일 형식에 맞게 입력해주세요.");
-		    	  $("#main_email").focus();
-		    	  return;
-		      }
-		      
-		      //전화번호 유효성
-		      if(!phonNumberCheck.test($("#phone").val())){
-		    	  alert("전화번호 형식에 맞게 입력해주세요.(- 빼고 입력해주세요)");
-		    	  $("#phone").focus();
-		    	  return;
-		      }
-		      
-		     //이름 유효성
-		      if(!nameCheck.test($("#name").val())){
-		    	  alert("이름을 한글로 입력해주세요.");
-		    	  $("#name").focus();
-		    	  return;
-		      }
-		    	//계좌번호 유효성
-		      if(!accountCheck.test($("#account").val())){
-		    	  alert("계좌번호를 정확하게 입력해주세요");
-		    	  $("#account").focus();
-		    	  return;
-		      }
-		      
-		     $("#join").attr("action","join_result.jsp");
-	   }
-	</script>
+      //아이디 유효성 검사
+   if(!userIdCheck.test($("#main_id").val())){
+    	  alert("아이디에 영문 소문자와 숫자를 포함하여 5자에서 20자 사이로 입력해 주세요.");
+    	  $("#main_id").focus();
+    	  return;
+      }
+     //비밀번호, 비밀번호 확인 동일값인지 확인
+     if($("#password").val() != $("#passwordConfirm").val()){
+   	  alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요");
+   	  return;
+     }
+     //비밀번호 유효성
+     if(!passwdCheck.test($("#password").val())){
+   	  alert("비밀번호를 영문 대문자와 소문자, 숫자, 특수문자를 하나 이상 포함하여 8~16로 입력해 주세요.");
+   	  $("#password").focus();
+   	  return;
+     }
+     
+     //이메일 유효성
+     if(!emailCheck.test($("#main_email").val())){
+   	  alert("이메일 형식에 맞게 입력해주세요.");
+   	  $("#main_email").focus();
+   	  return;
+     }
+     
+     //전화번호 유효성
+     if(!phonNumberCheck.test($("#phone").val())){
+   	  alert("전화번호 형식에 맞게 입력해주세요.(- 빼고 입력해주세요)");
+   	  $("#phone").focus();
+   	  return;
+     }
+     
+    //이름 유효성
+     if(!nameCheck.test($("#name").val())){
+   	  alert("이름을 한글로 입력해주세요.");
+   	  $("#name").focus();
+   	  return;
+     }
+   	//계좌번호 유효성
+     if(!accountCheck.test($("#account").val())){
+   	  alert("계좌번호를 정확하게 입력해주세요");
+   	  $("#account").focus();
+   	  return;
+     }
+     
+    $("#join").attr("action","join_result.jsp");
+  }
+</script>
 </head>
 <body>
 	<!--헤더-->

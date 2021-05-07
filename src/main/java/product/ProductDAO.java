@@ -3,10 +3,8 @@ package product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import util.DBConnection;
@@ -457,7 +455,7 @@ public class ProductDAO {
 	      
 	      return purchaseList ;
 	   }
-	//탈퇴부분에서 경매중이면 탈퇴가 안되게하는부분 
+	//탈퇴부분에서 경매중이거나 입찰자이면 탈퇴가 안되게하는부분 
 	public int auctioning(String id){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
