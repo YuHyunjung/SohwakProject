@@ -239,10 +239,16 @@
 						</tr>
 						<tr>
 							<th>타임</th>
+							<td><%
+							String userAgent = request.getHeader("User-Agent");
+							if (userAgent.indexOf("Trident") > 0 || userAgent.indexOf("MSIE") > 0) {
+							 	out.println(productDTO.getEnd_date());
+							}else{
+							%>
 								<script>
 									$(document).ready(function(){
 									  tid=setInterval('msg_time()',1000); // 타이머 1초간격으로 수행
-									});
+								   	});
 									 
 									var stDate = new Date().getTime();
 									var edDate = new Date("<%=productDTO.getEnd_date()%>").getTime();
@@ -269,8 +275,8 @@
 									    RemainDate = RemainDate - 1000; // 남은시간 -1초
 									  }
 									}
-								</script>
-								<td><%if(productDTO.getState().equals("경매종료")){ %>
+								</script><%}
+								if(productDTO.getState().equals("경매종료")){ %>
 										<p style="color:red;">경매종료</p>
 									<%} else{%>
 									<div id="timer"></div>

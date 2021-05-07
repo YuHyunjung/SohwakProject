@@ -23,7 +23,35 @@
 		    background-color: #668efd;
 	    }
 	</style>
+	
 </head>
+	<%
+		int board_code = Integer.parseInt(request.getParameter("board_code"));
+		
+		BoardDAO dao = new BoardDAO();
+		BoardDTO boardDTO = dao.getDetail(board_code);
+		
+	%>
+	<script>
+	function insert(){
+		var title = $("#board_title").val();
+		var discription = $("#board_content").val();
+		
+		if(title == ""){
+			alert("글 제목을 작성해주세요");
+			title.focus();
+			return;
+		}
+		if(discription == ""){
+			alert("글 내용을 작성해주세요");
+			title.focus();
+			return;
+		}
+		
+		$("#notice").attr("action","./notice_update_Action.jsp?board_code=<%=board_code%>");
+	}
+	
+	</script>
 <body>
 	<!--헤더-->
 	<%@ include file="../common/header.jsp" %>
@@ -39,18 +67,12 @@
 			response.sendRedirect("../index.jsp");
 		}
 	%>
+	
 	<div class="container">
 		<div class="titleArea">
 			<h2>공지사항수정</h2>
 		</div>
-		<%
-		int board_code = Integer.parseInt(request.getParameter("board_code"));
-		
-		BoardDAO dao = new BoardDAO();
-		BoardDTO boardDTO = dao.getDetail(board_code);
-		
-		%>
-		<form action="notice_update_Action.jsp?board_code=<%=board_code%>" method="POST">
+		<form id="notice" method="POST">
             <table>
             	<tr>
             		<th>제목</th>
@@ -62,7 +84,7 @@
             	</tr>
 			</table>
            <div class="btn_area">
-				<input type="submit" class="submit" value="수정하기" >
+				<input type="submit" class="submit" onclick="insert()" value="수정하기" >
 				<input type="button" class="cancel" value="취소하기" Onclick="location.href='./notice.jsp'">
             </div>
 		</form>

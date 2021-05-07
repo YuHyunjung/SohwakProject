@@ -25,21 +25,22 @@
 	</style>
 </head>
 <script>
-	function Insert(){
-		var insertFrame = document.insertFrame;
-		if(!insertFrame.board_title.value){
+	function insert(){
+		var title = $("#board_title").val();
+		var discription = $("#board_content").val();
+		
+		if(title == ""){
 			alert("글 제목을 작성해주세요");
-			insertFrame.board_title.focus();
+			title.focus();
 			return;
 		}
-		
-		if(!insertFrame.board_content.value){
+		if(discription == ""){
 			alert("글 내용을 작성해주세요");
-			insertFrame.board_content.focus();
+			title.focus();
 			return;
 		}
 		
-		insertFrame.submit();
+		$("#notice").attr("action","board_AddAction.jsp");
 	}
 	
 </script>
@@ -63,7 +64,7 @@
 			<h2>공지사항작성</h2>
 		</div>
 	
-		<form action="board_AddAction.jsp" method="POST">
+		<form id="notice" method="POST">
             <table>
             	<tr>
             		<th>제목</th>
