@@ -8,6 +8,16 @@
 <head>
 <meta charset="UTF-8">
 <title>삭제 기능</title>
+<style>
+		.submit{
+		    width: 200px;
+		    height: 40px;
+		    margin: 0 auto;
+		    color: white;
+		    border: none;
+		    background-color: #668efd;
+	    }
+	</style>
 </head>
 <body>
 		<%
