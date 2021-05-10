@@ -110,7 +110,7 @@
 								int count = deliDAO.count(productDTO.get(i).getProduct_code());
 								if(count == 0){
 							%>
-								 <a href="../product/order.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">배송지입력</a>
+								 <a href="../product/order.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>"><button type="submit" class="submit">배송지입력</button></a>
 							<%}else{
 								if(deliDTO.getState().equals("배송지입력완료")){
 									out.println("송장입력중");
@@ -118,7 +118,7 @@
 							%>
 								<p><%=deliDTO.getDelivery_company() %><br>
 									<%=deliDTO.getTracking_no() %><br>
-									<a href="./confirm_purchase.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">구매확정</a>
+									<a href="./confirm_purchase.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>"><button type="submit" class="submit">구매확정</button></a>
 								</p>
 							<%}else if(deliDTO.getState().equals("구매확정")){
 									out.println("구매완료");

@@ -53,7 +53,7 @@ public class CashDAO {
 		CashDTO cashDTO = new CashDTO();
 		try {
 			conn = DBConnection.getConnection();
-			String sql = "SELECT * FROM cash WHERE user_id=? order by time desc limit 1";
+			String sql = "SELECT * FROM cash WHERE user_id=? order by cash_no desc limit 1";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			ResultSet rs = pstmt.executeQuery();
