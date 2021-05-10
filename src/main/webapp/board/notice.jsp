@@ -15,6 +15,7 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
 	<link rel="stylesheet" href="../css/common.css">
 	<link rel="stylesheet" href="../css/notice_main.css">
+	
 </head>
 
 <body>

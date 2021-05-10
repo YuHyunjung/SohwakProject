@@ -22,8 +22,17 @@
             text-align: center;
         }
         fieldset{
-			width: 403px;
+			width: 80px;
 			margin: 0 auto;
-            border: none;
 			margin-top: 30px;
+			border : 1px solid rgb(197, 197, 197);	
+			background-color: #668efd;
+			text-align: center;
+			color : white;
         }
+        #submit{
+        	color : white;
+        }
+ 
+       	
+        
