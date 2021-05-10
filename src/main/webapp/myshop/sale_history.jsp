@@ -115,7 +115,11 @@
 						<td><img src="../file/<%=productDTO.get(i).getThumnail() %>" alt="상품이미지" class="product_img"></td>
 						<td><%=productDTO.get(i).getCurrent_price() %><br>
 							(<%=productDTO.get(i).getMin_price() %>원/<%=productDTO.get(i).getMax_price() %>)원</td>
-						<td><div class="timer" attr-enddate="<%=productDTO.get(i).getEnd_date()%>" style="display:none;"><%=productDTO.get(i).getEnd_date()%></div></td>
+						<td><%if(productDTO.get(i).getState().equals("경매종료")){
+								out.println("경매종료");
+						}else{%>
+							<div class="timer" attr-enddate="<%=productDTO.get(i).getEnd_date()%>" style="display:none;"><%=productDTO.get(i).getEnd_date()%></div></td>
+						<%} %>
 						<td>
 							<%
 							if(productDTO.get(i).getState().equals("경매전")){
@@ -127,11 +131,13 @@
 							}else if(productDTO.get(i).getState().equals("경매중")){
 							%>
 							경매진행중<br>
-							<a href="../product/detail.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>">링크로이동</a>
+							<a href="../product/detail.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>"><button type="submit" class="submit">링크로이동</button></a>
 							<a href="../product/regist_modify.jsp?product_code=<%=productDTO.get(i).getProduct_code()%>"><button type="submit" class="submit">상품수정</button></a>
-							<%}else if(productDTO.get(i).getState().equals("경매종료")){ 
+							<%}else if(productDTO.get(i).getState().equals("경매종료") && productDTO.get(i).getBidder()==null){
+								out.println("입찰자없음");
+							}else if(productDTO.get(i).getState().equals("경매종료")){ 
 								if(count == 0){
-									out.println("경매종료(배송지입력전)");
+										out.println("경매종료(배송지입력전)");
 								}else if(deliDTO.getState().equals("배송지입력완료")){
 							%>
 								<p>송장번호입력</p>
@@ -150,12 +156,16 @@
 								}else if(deliDTO.getState().equals("구매확정")){	//구매확정
 									out.println("판매완료");
 								}
-								}%>
+							}%>
 						</td>
 						<td>
 						<%if(productDTO.get(i).getState().equals("경매종료")){ 
 							if(count == 0){
-								out.println("경매종료(배송지입력전)");
+								if(productDTO.get(i).getBidder()==null){
+									out.println("입찰자없음");
+								}else{
+									out.println("경매종료(배송지입력전)");
+								}
 							}else if(deliDTO.getState().equals("배송지입력완료")){%>
 						<p> 구매자이름 : <%=deliDTO.getReceiver() %><br>
 							주소 : <%=deliDTO.getDelivery_address() %><br>

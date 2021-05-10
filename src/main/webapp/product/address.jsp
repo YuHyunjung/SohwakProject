@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <% 
 	request.setCharacterEncoding("UTF-8");
+	String id = (String) session.getAttribute("idKey");
 	String inputYn = request.getParameter("inputYn"); 
 	String roadFullAddr = request.getParameter("roadFullAddr"); 
 	String roadAddrPart1 = request.getParameter("roadAddrPart1"); 

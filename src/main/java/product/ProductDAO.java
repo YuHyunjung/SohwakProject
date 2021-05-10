@@ -439,6 +439,7 @@ public class ProductDAO {
 	            dto.setEnd_date(rs.getString("end_date"));
 	            dto.setDiscription(rs.getString("product_discription"));
 	            dto.setThumnail(rs.getString("thumnail"));
+	            dto.setBidder(rs.getString("bidder"));
 	            dto.setState(rs.getString("state"));
 	            purchaseList.add(dto);
 	         }

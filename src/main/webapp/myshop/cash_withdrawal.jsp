@@ -66,7 +66,7 @@
 	                    			}
 	                    		%>
 	                <p>계좌번호 : <%=userDTO.getAccountNum() %></p>
-	                <p>출금가능 잔액 : <%=total %></p>
+	                <p>출금가능 잔액 : <%=total%></p>
 	                <p>출금 금액 <input type="number" name="amount" value=""></p>
 	                
 	                <input type="hidden" name="user_id" value="<%=id %>">
